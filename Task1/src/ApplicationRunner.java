@@ -8,90 +8,80 @@ import java.util.Scanner;
 public class ApplicationRunner {
 
     public static void main(String[] args) {
-        HashMap<Integer, Object> albumsMap = new HashMap<>();
-        
-        Album album1;
-        Album album2;
-        Album album3;
-        
-        Album[] albums = new Album[20];
 
+        String dataFile = System.getProperty("user.dir") + File.separator + "albums.txt";
+        ArrayList<String> albumsData = new ArrayList<>();
+        ArrayList<String> albumsTracks = new ArrayList<>();
+        ArrayList<String> trk = new ArrayList<>();
+        HashMap<Integer, ArrayList<String>> tracks = new HashMap<>();
+        ArrayList<Album> albums = new ArrayList<>();
+
+        File albumsFile = new File(dataFile);
         try {
-            String dataFile = System.getProperty("user.dir") + File.separator + "albums.txt";
-
-            File albumsFile = new File(dataFile);
             Scanner filereader = new Scanner(albumsFile);
-            ArrayList<String> tracks = new ArrayList<>();
-            ArrayList<String> firstLine = new ArrayList<>();
-
             String line;
+            int index = 0;
             while (filereader.hasNextLine()) {
 
                 line = filereader.nextLine();
 
                 char ch = line.charAt(0);
+                char ch2 = line.charAt(1);
+                char ch3 = line.charAt(2);
 
                 if (Character.isDigit(ch)) {
-                    firstLine.add(line);
-                    
+
+                    if (ch2 == ':' || ch3 == ':') {
+
+                        albumsData.add(line);
+                    }
+
                 } else {
-                    tracks.add(line);
-                    
-                    
-                    
+                    albumsTracks.add(line);
+
                 }
 
             }
-            
-            
-            
-            for (int i = 0; i < albums.length; i++) {
-                String[] parts1 = firstLine.get(0).split(":");
-                String title1 = parts1[1];
-                String artist1 = parts1[2];
-                String year1 = parts1[3];
-                
-                albums[i]= new Album(title1,artist1,year1);
-                
+            if (albumsTracks.get(0).contains("-")) {
+                System.out.println("Yes");
             }
-            for (Album album : albums) {
-                System.out.println(album);
-                
-            }
-//            System.out.println(tracks.get(0));
-//                String[] parts1 = firstLine.get(0).split(":");
-//                String title1 = parts1[1];
-//                String artist1 = parts1[2];
-//                String year1 = parts1[3];
-//                album1 = new Album(title1,artist1,year1);
-//               
-//                String[] parts2 = firstLine.get(1).split(":");
-//                String title2 = parts2[1];
-//                String artist2 = parts2[2];
-//                String year2 = parts2[3];
-//                album2 = new Album(title2,artist2,year2);
-//               
-//                String[] parts3 = firstLine.get(2).split(":");
-//                String title3 = parts3[1];
-//                String artist3 = parts3[2];
-//                String year3 = parts3[3];
-//                album3 = new Album(title3,artist3,year3);
-//               
-//                
-//                System.out.println(album3);
-//                
-//                albumsMap.put(1, album1);
-//                albumsMap.put(2, album2);
-//                albumsMap.put(3, album3);
-//                
-//                
-//               System.out.println(albumsMap.get(3));
-                
 
+//            loops through each first line and splits : delimted
+            for (int i = 0; i < albumsData.size(); i++) {
+                String title = "", artist = "", year = "", sales = "";
+                int ranking = 0;
+
+                String[] split = albumsData.get(i).split(":");
+                // storing title artist year and sales into a class object
+                for (String split1 : split) {
+                    ranking = Integer.parseInt(split[0]);
+                    title = split[1];
+                    artist = split[2];
+                    year = split[3];
+                    sales = split[4];
+                }
+                albums.add(new Album(ranking, title, artist, year, sales));
+
+            }
+
+            tableHeaders();
+            for (int i = 0; i < albums.size(); i++) {
+                System.out.println(albums.get(i));
+                
+            }
         } catch (FileNotFoundException ex) {
-
+            System.out.println("File not found");
         }
 
     }
 
+    public static void tableHeaders() {
+        String headerTitles;
+        String headerBorders;
+        headerTitles = String.format("%2s %2s %25s %25s %5s %20s %5s", "Rank", "|", "Title", "|", "Artist", "|", "Year");
+        headerBorders = String.format("%s", "----------------------------------------------------------------------------------------------------------------");
+        System.out.println(headerBorders);
+        System.out.println(headerTitles);
+        System.out.println(headerBorders);
+    }
 }
