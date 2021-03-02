@@ -42,37 +42,70 @@ public class ApplicationRunner {
                 }
 
             }
-            if (albumsTracks.get(0).contains("-")) {
-                System.out.println("Yes");
-            }
 
-//            loops through each first line and splits : delimted
-            for (int i = 0; i < albumsData.size(); i++) {
-                String title = "", artist = "", year = "", sales = "";
-                int ranking = 0;
+            storeAlbums(albumsData, albums);
 
-                String[] split = albumsData.get(i).split(":");
-                // storing title artist year and sales into a class object
-                for (String split1 : split) {
-                    ranking = Integer.parseInt(split[0]);
-                    title = split[1];
-                    artist = split[2];
-                    year = split[3];
-                    sales = split[4];
-                }
-                albums.add(new Album(ranking, title, artist, year, sales));
-
-            }
-
-            tableHeaders();
-            for (int i = 0; i < albums.size(); i++) {
-                System.out.println(albums.get(i));
-                
-            }
         } catch (FileNotFoundException ex) {
             System.out.println("File not found");
         }
+        
+        boolean activeMenu = true;
+        while (activeMenu) {
+            System.out.println(
+                    "List albums.........1\n"
+                    + "Select album........2\n"
+                    + "Search titles.......3\n"
+                    + "Exit................0");
+            System.out.println(">");
+            Scanner s = new Scanner(System.in);
+            int option = s.nextInt();
+            switch (option) {
+                case 1:
+                    listAlbums(albums);
+                    System.out.println("");
+                    break;
+                case 2:
+                    System.out.println("Select Rank [1-20]>");
+                    Scanner rank = new Scanner(System.in);
+                    int rankInput = rank.nextInt();
+                    System.out.println(albums.get(rankInput - 1));
+                    break;
+                case 0:
+                    activeMenu = false;
+                    break;
+                default:
+                    break;
+            }
+        }
 
+    }
+
+    public static void storeAlbums(ArrayList<String> albumsData, ArrayList<Album> albums) {
+        //loops through each first line and splits : delimted
+        for (int i = 0; i < albumsData.size(); i++) {
+            String title = "", artist = "", year = "", sales = "";
+            int ranking = 0;
+
+            String[] split = albumsData.get(i).split(":");
+            // storing title artist year and sales into a class object
+            for (String split1 : split) {
+                ranking = Integer.parseInt(split[0]);
+                title = split[1];
+                artist = split[2];
+                year = split[3];
+                sales = split[4];
+            }
+            albums.add(new Album(ranking, title, artist, year, sales));
+
+        }
+    }
+
+    public static void listAlbums(ArrayList<Album> albums) {
+        tableHeaders();
+        for (int i = 0; i < albums.size(); i++) {
+            System.out.println(albums.get(i));
+
+        }
     }
 
     public static void tableHeaders() {
