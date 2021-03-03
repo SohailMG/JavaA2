@@ -2,6 +2,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ public class ApplicationRunner {
         ArrayList<String> albumsData = new ArrayList<>();
         ArrayList<String> albumsTracks = new ArrayList<>();
         ArrayList<String> trk = new ArrayList<>();
-        HashMap<Integer, ArrayList<String>> tracks = new HashMap<>();
+        HashMap<Integer, String> tracks = new HashMap<>();
         ArrayList<Album> albums = new ArrayList<>();
 
         File albumsFile = new File(dataFile);
@@ -48,7 +49,13 @@ public class ApplicationRunner {
         } catch (FileNotFoundException ex) {
             System.out.println("File not found");
         }
-        
+
+//        showTrackList(albumsTracks, tracks, 0);
+//        System.out.println(Arrays.toString(splited));
+//        for (String tr : trs) {
+//            System.out.println(tr);
+//
+//        }
         boolean activeMenu = true;
         while (activeMenu) {
             System.out.println(
@@ -69,6 +76,7 @@ public class ApplicationRunner {
                     Scanner rank = new Scanner(System.in);
                     int rankInput = rank.nextInt();
                     System.out.println(albums.get(rankInput - 1));
+                    showTrackList(albumsTracks, tracks, rankInput - 1);
                     break;
                 case 0:
                     activeMenu = false;
@@ -77,7 +85,45 @@ public class ApplicationRunner {
                     break;
             }
         }
+    }
 
+    public static void showTrackList(ArrayList<String> albumsTracks, HashMap<Integer, String> tracks, int rank) {
+
+        String headerBorder = "------------------------------------------------------------------------------------------------------";
+        String headerTitles = String.format("%2s %1s %-80s %-1s %-2s %1s %1s", "Rank", "|", "Title", "|", "Mins", "|", "Secs");
+        System.out.println(headerBorder + "\n" + headerTitles + "\n" + headerBorder);
+        String[] trs = splitTracks(albumsTracks);
+        String[] splited = trs[rank].split("::");
+        int x = 0;
+        for (String album : splited) {
+            tracks.put(x, album);
+            String temp = album.replaceAll("\\)", "");
+
+            String[] tracksTokens = temp.split("\\(|\\:");
+
+            System.out.println(String.format("%2s %3s %-80s %-1s %-2s %3s %1s",
+                    x + 1, "|", tracksTokens[0], "|", tracksTokens[1], "|", tracksTokens[2]));
+            x++;
+        }
+
+    }
+
+    public static String[] splitTracks(ArrayList<String> albumsTracks) {
+        int x = 0;
+        int MAX_TRACKS = 20;
+        String[] trs = new String[MAX_TRACKS];
+        String s = "";
+        for (int i = 0; i < albumsTracks.size(); i++) {
+            if (albumsTracks.get(i).contains("--")) {
+                trs[x] = s;
+                x++;
+                s = "";
+            } else {
+                s = s.concat(albumsTracks.get(i)).concat("::");
+            }
+
+        }
+        return trs;
     }
 
     public static void storeAlbums(ArrayList<String> albumsData, ArrayList<Album> albums) {
@@ -85,7 +131,6 @@ public class ApplicationRunner {
         for (int i = 0; i < albumsData.size(); i++) {
             String title = "", artist = "", year = "", sales = "";
             int ranking = 0;
-
             String[] split = albumsData.get(i).split(":");
             // storing title artist year and sales into a class object
             for (String split1 : split) {
@@ -111,7 +156,7 @@ public class ApplicationRunner {
     public static void tableHeaders() {
         String headerTitles;
         String headerBorders;
-        headerTitles = String.format("%2s %2s %25s %25s %5s %20s %5s", "Rank", "|", "Title", "|", "Artist", "|", "Year");
+        headerTitles = String.format("%2s %2s %25s %25s %5s %20s %5s %1s %5s", "Rank", "|", "Title", "|", "Artist", "|", "Year", "|", "Sales");
         headerBorders = String.format("%s", "----------------------------------------------------------------------------------------------------------------");
         System.out.println(headerBorders);
         System.out.println(headerTitles);

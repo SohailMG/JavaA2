@@ -17,7 +17,7 @@ public class Album {
     private int ranking;
     private String[] tracks;
 
-    Album(int ranking,String title, String artist, String year, String sales) {
+    Album(int ranking, String title, String artist, String year, String sales) {
         this.title = title;
         this.artist = artist;
         this.year = year;
@@ -25,22 +25,6 @@ public class Album {
         this.ranking = ranking;
 
 //        this.tracks = tracks;
-    }
-
-    @Override
-    public String toString() {
-
-        
-//        String line =  "|" + ranking + "\t" + "|"  + title + "\t\t" + "|"+ artist + "\t\t" + "|"+ year + "\t\t" + "|"+ sales + "\n";
-        String headerTitles = String.format("%2s %4s %-49s %-1s %-25s %1s %5s",  ranking , "|", title, "|", artist, "|", year);
-        String obj
-                = "Rank   : " + ranking + "\n"
-                + "Title  : " + title + "\n"
-                + "Artist : " + artist + "\n"
-                + "year   : " + year + "\n"
-                + "Sales  : " + sales;
-
-        return headerTitles;
     }
 
     public String getTitle() {
@@ -56,10 +40,22 @@ public class Album {
     }
 
     public String[] getTracks() {
-        for (String track : tracks) {
-
-        }
         return tracks;
+    }
+
+    @Override
+    public String toString() {
+
+        String headerTitles = String.format("%2s %4s %-49s %-1s %-25s %1s %5s %1s %5s",
+                ranking, "|", title, "|", artist, "|", year, "|", sales);
+        String obj
+                = "Rank   : " + ranking + "\n"
+                + "Title  : " + title + "\n"
+                + "Artist : " + artist + "\n"
+                + "year   : " + year + "\n"
+                + "Sales  : " + sales;
+
+        return headerTitles;
     }
 
 }
