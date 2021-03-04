@@ -44,7 +44,7 @@ public class ApplicationRunner {
 
             }
 
-            storeAlbums(albumsData, albums);
+            storeAlbums(albumsData, albums,albumsTracks);
 
         } catch (FileNotFoundException ex) {
             System.out.println("File not found");
@@ -68,15 +68,20 @@ public class ApplicationRunner {
             int option = s.nextInt();
             switch (option) {
                 case 1:
-                    listAlbums(albums);
                     System.out.println("");
+                    tableHeaders();
+                    albums.forEach((album) -> {
+                        System.out.println(album.toString(option));
+                    });
                     break;
                 case 2:
                     System.out.println("Select Rank [1-20]>");
                     Scanner rank = new Scanner(System.in);
                     int rankInput = rank.nextInt();
-                    System.out.println(albums.get(rankInput - 1));
-                    showTrackList(albumsTracks, tracks, rankInput - 1);
+                    System.out.println(albums.get(rankInput - 1).toString(option));
+                    showTrackList(albumsTracks,  rankInput - 1);
+                    break;
+                case 3:
                     break;
                 case 0:
                     activeMenu = false;
@@ -87,27 +92,20 @@ public class ApplicationRunner {
         }
     }
 
-    public static void showTrackList(ArrayList<String> albumsTracks, HashMap<Integer, String> tracks, int rank) {
-
-        String headerBorder = "------------------------------------------------------------------------------------------------------";
-        String headerTitles = String.format("%2s %1s %-80s %-1s %-2s %1s %1s", "Rank", "|", "Title", "|", "Mins", "|", "Secs");
-        System.out.println(headerBorder + "\n" + headerTitles + "\n" + headerBorder);
+    public static String[] showTrackList(ArrayList<String> albumsTracks,  int rank) {
         String[] trs = splitTracks(albumsTracks);
         String[] splited = trs[rank].split("::");
-        int x = 0;
-        for (String album : splited) {
-            tracks.put(x, album);
-            String temp = album.replaceAll("\\)", "");
-
-            String[] tracksTokens = temp.split("\\(|\\:");
-
-            System.out.println(String.format("%2s %3s %-80s %-1s %-2s %3s %1s",
-                    x + 1, "|", tracksTokens[0], "|", tracksTokens[1], "|", tracksTokens[2]));
-            x++;
-        }
-
+        return splited;
     }
 
+    /**
+     *
+     * iterates through array of tracks, concatenates all tracks separated
+     * by dash and adds :: as separator, then stores each section of tracks
+     * into an array
+     * @param albumsTracks
+     * @return array of tracks separated by :: 
+     */
     public static String[] splitTracks(ArrayList<String> albumsTracks) {
         int x = 0;
         int MAX_TRACKS = 20;
@@ -126,8 +124,9 @@ public class ApplicationRunner {
         return trs;
     }
 
-    public static void storeAlbums(ArrayList<String> albumsData, ArrayList<Album> albums) {
+    public static void storeAlbums(ArrayList<String> albumsData, ArrayList<Album> albums,ArrayList<String>albumsTracks) {
         //loops through each first line and splits : delimted
+        
         for (int i = 0; i < albumsData.size(); i++) {
             String title = "", artist = "", year = "", sales = "";
             int ranking = 0;
@@ -140,18 +139,19 @@ public class ApplicationRunner {
                 year = split[3];
                 sales = split[4];
             }
-            albums.add(new Album(ranking, title, artist, year, sales));
+            String[] alTracks =  showTrackList(albumsTracks, i);
+            albums.add(new Album(ranking, title, artist, year, sales,alTracks));
 
         }
     }
 
-    public static void listAlbums(ArrayList<Album> albums) {
-        tableHeaders();
-        for (int i = 0; i < albums.size(); i++) {
-            System.out.println(albums.get(i));
-
-        }
-    }
+//    public static void listAlbums(ArrayList<Album> albums) {
+//        tableHeaders();
+//        for (int i = 0; i < albums.size(); i++) {
+//            System.out.println(albums.get(i));
+//
+//        }
+//    }
 
     public static void tableHeaders() {
         String headerTitles;

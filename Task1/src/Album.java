@@ -17,14 +17,16 @@ public class Album {
     private int ranking;
     private String[] tracks;
 
-    Album(int ranking, String title, String artist, String year, String sales) {
+    public Album() {
+    }
+
+    Album(int ranking, String title, String artist, String year, String sales, String[] tracks) {
         this.title = title;
         this.artist = artist;
         this.year = year;
         this.sales = sales;
         this.ranking = ranking;
-
-//        this.tracks = tracks;
+        this.tracks = tracks;
     }
 
     public String getTitle() {
@@ -40,22 +42,44 @@ public class Album {
     }
 
     public String[] getTracks() {
+
         return tracks;
     }
 
-    @Override
-    public String toString() {
+//    @Override
+    public String toString(int option) {
+        StringBuilder str = new StringBuilder();
 
-        String headerTitles = String.format("%2s %4s %-49s %-1s %-25s %1s %5s %1s %5s",
-                ranking, "|", title, "|", artist, "|", year, "|", sales);
-        String obj
-                = "Rank   : " + ranking + "\n"
-                + "Title  : " + title + "\n"
-                + "Artist : " + artist + "\n"
-                + "year   : " + year + "\n"
-                + "Sales  : " + sales;
+        String obj = null;
+        if (option == 1) {
+            String headerTitles = String.format("%2s %4s %-49s %-1s %-25s %1s %5s %1s %5s",
+                    ranking, "|", title, "|", artist, "|", year, "|", sales);
+            obj = headerTitles;
 
-        return headerTitles;
+        } else if (option == 2) {
+            String headerBorder = "------------------------------------------------------------------------------------------------------";
+            String headerTitles = String.format("%2s %1s %-80s %-1s %-2s %1s %1s", "Rank", "|", "Title", "|", "Mins", "|", "Secs");
+            String albumInfo
+                    = "Title  : " + title + "\n"
+                    + "Artist : " + artist + "\n"
+                    + "Year   : " + year + "\n"
+                    + "Sales  : " + sales;
+            str.append(albumInfo).append("\n").append("Track List : ").append("\n");
+            str.append(headerBorder).append("\n").append(headerTitles).append("\n").append(headerBorder).append("\n");
+           
+            int x = 0;
+            for (String album : tracks) {
+                String temp = album.replaceAll("\\)", "");
+                String[] tracksTokens = temp.split("\\(|\\:");
+                str.append(String.format("%2s %3s %-80s %-1s %-2s %3s %1s",
+                        x + 1, "|", tracksTokens[0], "|", tracksTokens[1], "|", tracksTokens[2]));
+                str.append("\n");
+                x++;
+            }
+
+            obj = str.toString();
+        }
+        return obj;
     }
 
 }
