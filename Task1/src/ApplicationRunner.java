@@ -44,18 +44,12 @@ public class ApplicationRunner {
 
             }
 
-            storeAlbums(albumsData, albums,albumsTracks);
+            storeAlbums(albumsData, albums, albumsTracks);
 
         } catch (FileNotFoundException ex) {
             System.out.println("File not found");
         }
 
-//        showTrackList(albumsTracks, tracks, 0);
-//        System.out.println(Arrays.toString(splited));
-//        for (String tr : trs) {
-//            System.out.println(tr);
-//
-//        }
         boolean activeMenu = true;
         while (activeMenu) {
             System.out.println(
@@ -75,13 +69,42 @@ public class ApplicationRunner {
                     });
                     break;
                 case 2:
-                    System.out.println("Select Rank [1-20]>");
-                    Scanner rank = new Scanner(System.in);
-                    int rankInput = rank.nextInt();
-                    System.out.println(albums.get(rankInput - 1).toString(option));
-                    showTrackList(albumsTracks,  rankInput - 1);
+                    try {
+                        System.out.println("Select Rank [1-20]>");
+                        Scanner rank = new Scanner(System.in);
+                        int rankInput = rank.nextInt();
+                        System.out.println(albums.get(rankInput - 1).toString(option));
+
+                    } catch (Exception e) {
+                        if (e.hashCode() == IndexOutOfBoundsException.class.hashCode()) {
+                            System.out.println("Out of Range");
+                        }
+                    }
+
                     break;
                 case 3:
+                    System.out.println("Enter Search Word or Phrase  > ");
+                    Scanner search = new Scanner(System.in);
+                    String searchStr = search.nextLine().toLowerCase();
+
+                    System.out.println("Matches...");
+                    for (int i = 0; i < albums.size(); i++) {
+
+                        String[] Albumtracks = albums.get(i).getTracks();
+                        for (int j = 0; j < Albumtracks.length; j++) {
+                            String lcStr = Albumtracks[j].toLowerCase();
+
+                            if (lcStr.contains(searchStr)) {
+
+                                System.out.println("--------------------------------------------------");
+                                System.out.println("| Artist      | " + albums.get(i).getArtist());
+                                System.out.println("| Album Title | " + albums.get(i).getTitle());
+                                System.out.println("| Track Found | " + "[No. " + (j + 1) + "] -- " + Albumtracks[j]);
+                                System.out.println("--------------------------------------------------");
+                            }
+
+                        }
+                    }
                     break;
                 case 0:
                     activeMenu = false;
@@ -92,21 +115,17 @@ public class ApplicationRunner {
         }
     }
 
-    public static String[] showTrackList(ArrayList<String> albumsTracks,  int rank) {
-        String[] trs = splitTracks(albumsTracks);
-        String[] splited = trs[rank].split("::");
-        return splited;
-    }
-
     /**
      *
-     * iterates through array of tracks, concatenates all tracks separated
-     * by dash and adds :: as separator, then stores each section of tracks
-     * into an array
+     * iterates through array of tracks, concatenates all tracks separated by
+     * dash and adds :: as separator, then stores each section of tracks into an
+     * array
+     *
      * @param albumsTracks
-     * @return array of tracks separated by :: 
+     * @param rank
+     * @return array of tracks separated by ::
      */
-    public static String[] splitTracks(ArrayList<String> albumsTracks) {
+    public static String[] splitTracks(ArrayList<String> albumsTracks, int rank) {
         int x = 0;
         int MAX_TRACKS = 20;
         String[] trs = new String[MAX_TRACKS];
@@ -121,12 +140,14 @@ public class ApplicationRunner {
             }
 
         }
-        return trs;
+
+        String[] splited = trs[rank].split("::");
+        return splited;
     }
 
-    public static void storeAlbums(ArrayList<String> albumsData, ArrayList<Album> albums,ArrayList<String>albumsTracks) {
+    public static void storeAlbums(ArrayList<String> albumsData, ArrayList<Album> albums, ArrayList<String> albumsTracks) {
         //loops through each first line and splits : delimted
-        
+
         for (int i = 0; i < albumsData.size(); i++) {
             String title = "", artist = "", year = "", sales = "";
             int ranking = 0;
@@ -139,19 +160,11 @@ public class ApplicationRunner {
                 year = split[3];
                 sales = split[4];
             }
-            String[] alTracks =  showTrackList(albumsTracks, i);
-            albums.add(new Album(ranking, title, artist, year, sales,alTracks));
+            String[] alTracks = splitTracks(albumsTracks, i);
+            albums.add(new Album(ranking, title, artist, year, sales, alTracks));
 
         }
     }
-
-//    public static void listAlbums(ArrayList<Album> albums) {
-//        tableHeaders();
-//        for (int i = 0; i < albums.size(); i++) {
-//            System.out.println(albums.get(i));
-//
-//        }
-//    }
 
     public static void tableHeaders() {
         String headerTitles;

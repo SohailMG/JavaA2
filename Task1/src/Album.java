@@ -1,3 +1,6 @@
+
+import java.util.Arrays;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -78,6 +81,8 @@ public class Album {
             }
 
             obj = str.toString();
+        }else{
+            obj = Arrays.toString(tracks);
         }
         return obj;
     }
