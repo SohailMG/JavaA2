@@ -6,7 +6,6 @@ import java.util.Arrays;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author sohailgsais
@@ -54,35 +53,39 @@ public class Album {
         StringBuilder str = new StringBuilder();
 
         String obj = null;
-        if (option == 1) {
-            String headerTitles = String.format("%2s %4s %-49s %-1s %-25s %1s %5s %1s %5s",
-                    ranking, "|", title, "|", artist, "|", year, "|", sales);
-            obj = headerTitles;
-
-        } else if (option == 2) {
-            String headerBorder = "------------------------------------------------------------------------------------------------------";
-            String headerTitles = String.format("%2s %1s %-80s %-1s %-2s %1s %1s", "Rank", "|", "Title", "|", "Mins", "|", "Secs");
-            String albumInfo
-                    = "Title  : " + title + "\n"
-                    + "Artist : " + artist + "\n"
-                    + "Year   : " + year + "\n"
-                    + "Sales  : " + sales;
-            str.append(albumInfo).append("\n").append("Track List : ").append("\n");
-            str.append(headerBorder).append("\n").append(headerTitles).append("\n").append(headerBorder).append("\n");
-           
-            int x = 0;
-            for (String album : tracks) {
-                String temp = album.replaceAll("\\)", "");
-                String[] tracksTokens = temp.split("\\(|\\:");
-                str.append(String.format("%2s %3s %-80s %-1s %-2s %3s %1s",
-                        x + 1, "|", tracksTokens[0], "|", tracksTokens[1], "|", tracksTokens[2]));
-                str.append("\n");
-                x++;
+        switch (option) {
+            case 1: {
+                String headerTitles = String.format("%1s %2s %4s %-49s %-1s %-25s %1s %5s %1s %5s %1s",
+                        "|", ranking, "|", title, "|", artist, "|", year, "|", sales, "|");
+                obj = headerTitles;
+                break;
             }
+            case 2: {
+                String headerBorder = "------------------------------------------------------------------------------------------------------";
+                String headerTitles = String.format("%2s %1s %-80s %-1s %-2s %1s %1s", "Rank", "|", "Title", "|", "Mins", "|", "Secs");
+                String albumInfo
+                        = "Title  : " + title + "\n"
+                        + "Artist : " + artist + "\n"
+                        + "Year   : " + year + "\n"
+                        + "Sales  : " + sales;
+                str.append(albumInfo).append("\n").append("Track List : ").append("\n");
+                str.append(headerBorder).append("\n").append(headerTitles).append("\n").append(headerBorder).append("\n");
+                int x = 0;
+                for (String track : tracks) {
+                    String temp = track.replaceAll("\\)", "");
+                    String[] tracksTokens = temp.split("\\(|\\:");
+                    str.append(String.format("%2s %3s %-80s %-1s %-2s %3s %1s",
+                            x + 1, "|", tracksTokens[0], "|", tracksTokens[1], "|", tracksTokens[2]));
+                    str.append("\n");
+                    x++;
 
-            obj = str.toString();
-        }else{
-            obj = Arrays.toString(tracks);
+                }
+                obj = str.toString();
+                break;
+            }
+            default:
+                
+                break;
         }
         return obj;
     }

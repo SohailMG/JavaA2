@@ -2,26 +2,21 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Scanner;
 
-public class ApplicationRunner {
+public class Main {
 
     public static void main(String[] args) {
 
         String dataFile = System.getProperty("user.dir") + File.separator + "albums.txt";
         ArrayList<String> albumsData = new ArrayList<>();
         ArrayList<String> albumsTracks = new ArrayList<>();
-        ArrayList<String> trk = new ArrayList<>();
-        HashMap<Integer, String> tracks = new HashMap<>();
         ArrayList<Album> albums = new ArrayList<>();
 
         File albumsFile = new File(dataFile);
         try {
             Scanner filereader = new Scanner(albumsFile);
             String line;
-            int index = 0;
             while (filereader.hasNextLine()) {
 
                 line = filereader.nextLine();
@@ -52,33 +47,40 @@ public class ApplicationRunner {
 
         boolean activeMenu = true;
         while (activeMenu) {
+            System.out.println("");
             System.out.println(
                     "List albums.........1\n"
                     + "Select album........2\n"
                     + "Search titles.......3\n"
                     + "Exit................0");
-            System.out.println(">");
+            System.out.println("");
+            System.out.print("Choose Option >" );
             Scanner s = new Scanner(System.in);
             int option = s.nextInt();
             switch (option) {
                 case 1:
                     System.out.println("");
-                    tableHeaders();
+                    tableTemplate();
                     albums.forEach((album) -> {
                         System.out.println(album.toString(option));
                     });
+                    System.out.println("-------------------------------------------------------------------------------------------------------");
                     break;
                 case 2:
                     try {
                         System.out.println("Select Rank [1-20]>");
                         Scanner rank = new Scanner(System.in);
                         int rankInput = rank.nextInt();
+                        if(rankInput > 0 && rankInput <= 20){
+                        
                         System.out.println(albums.get(rankInput - 1).toString(option));
+                        }else{
+                            System.out.println( rankInput + " is Out of range");
+                        }
 
                     } catch (Exception e) {
-                        if (e.hashCode() == IndexOutOfBoundsException.class.hashCode()) {
-                            System.out.println("Out of Range");
-                        }
+                        System.out.println("\n" + "Rank must be an integer");
+                        
                     }
 
                     break;
@@ -86,19 +88,25 @@ public class ApplicationRunner {
                     System.out.println("Enter Search Word or Phrase  > ");
                     Scanner search = new Scanner(System.in);
                     String searchStr = search.nextLine().toLowerCase();
-
-                    System.out.println("Matches...");
+                    int matchCount = 0;
+                    System.out.println("Matches");
+                    
+//                    looping through array of album objects
                     for (int i = 0; i < albums.size(); i++) {
-
+//                        storing tracks of albums objects into an array
                         String[] Albumtracks = albums.get(i).getTracks();
+                        //looping through tracks containing search string
                         for (int j = 0; j < Albumtracks.length; j++) {
                             String lcStr = Albumtracks[j].toLowerCase();
 
                             if (lcStr.contains(searchStr)) {
-
+                                
+                                System.out.println( "\t\t" +  " Match [ " + ++matchCount + " ]");
                                 System.out.println("--------------------------------------------------");
                                 System.out.println("| Artist      | " + albums.get(i).getArtist());
+                                System.out.println("|-------------|");
                                 System.out.println("| Album Title | " + albums.get(i).getTitle());
+                                System.out.println("|-------------|");
                                 System.out.println("| Track Found | " + "[No. " + (j + 1) + "] -- " + Albumtracks[j]);
                                 System.out.println("--------------------------------------------------");
                             }
@@ -110,6 +118,7 @@ public class ApplicationRunner {
                     activeMenu = false;
                     break;
                 default:
+                    System.out.println("\n" + "Out of range" + "\n");
                     break;
             }
         }
@@ -166,11 +175,11 @@ public class ApplicationRunner {
         }
     }
 
-    public static void tableHeaders() {
+    public static void tableTemplate() {
         String headerTitles;
         String headerBorders;
-        headerTitles = String.format("%2s %2s %25s %25s %5s %20s %5s %1s %5s", "Rank", "|", "Title", "|", "Artist", "|", "Year", "|", "Sales");
-        headerBorders = String.format("%s", "----------------------------------------------------------------------------------------------------------------");
+        headerTitles = String.format("%2s %4s %25s %25s %5s %20s %5s %1s %5s", "Rank", "|", "Title", "|", "Artist", "|", "Year", "|", "Sales");
+        headerBorders = String.format("%s", "-------------------------------------------------------------------------------------------------------");
         System.out.println(headerBorders);
         System.out.println(headerTitles);
         System.out.println(headerBorders);
