@@ -1,60 +1,39 @@
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//TODO: MAKE LOADER CLASS FOR FILE 
 public class Main {
 
     public static void main(String[] args) {
 
-        String dataFile = System.getProperty("user.dir") + File.separator + "albums.txt";
-        ArrayList<String> albumsData = new ArrayList<>();
-        ArrayList<String> albumsTracks = new ArrayList<>();
+        // creating a dataloader object 
+        DataLoader dataLoader = new DataLoader();
+        // declaring an array of album objects
         ArrayList<Album> albums = new ArrayList<>();
 
-        File albumsFile = new File(dataFile);
-        try {
-            Scanner filereader = new Scanner(albumsFile);
-            String line;
-            while (filereader.hasNextLine()) {
+        // storing loaded albums and tracks into seperate arrays
+        ArrayList<String> albumsData = dataLoader.getAlbumsData();
+        ArrayList<String> albumsTracks = dataLoader.getAlbumsTracks();
 
-                line = filereader.nextLine();
+        // storing albums and tracks into an array of album objects
+        storeAlbums(albumsData, albums, albumsTracks);
 
-                char ch = line.charAt(0);
-                char ch2 = line.charAt(1);
-                char ch3 = line.charAt(2);
-
-                if (Character.isDigit(ch)) {
-
-                    if (ch2 == ':' || ch3 == ':') {
-
-                        albumsData.add(line);
-                    }
-
-                } else {
-                    albumsTracks.add(line);
-
-                }
-
-            }
-
-            storeAlbums(albumsData, albums, albumsTracks);
-
-        } catch (FileNotFoundException ex) {
-            System.out.println("File not found");
-        }
-
+        // maing program 
         boolean activeMenu = true;
         while (activeMenu) {
+            System.out.println("\n"
+                    + "\t\t|-----------------------|" + "\n"
+                    + "\t\t|\t" + "OPTIONS" + "\t\t|" + "\n"
+                    + "\t\t|-----------------------|" + "\n"
+                    + "\t\t| List albums.........1 |\n"
+                    + "\t\t| Select album........2 |\n"
+                    + "\t\t| Search titles.......3 |\n"
+                    + "\t\t| Exit................0 |\n"
+                    + "\t\t|-----------------------|" + "\n"
+            );
             System.out.println("");
-            System.out.println(
-                    "List albums.........1\n"
-                    + "Select album........2\n"
-                    + "Search titles.......3\n"
-                    + "Exit................0");
-            System.out.println("");
-            System.out.print("Choose Option >" );
+            System.out.print("Choose Option >");
             Scanner s = new Scanner(System.in);
             int option = s.nextInt();
             switch (option) {
@@ -67,20 +46,33 @@ public class Main {
                     System.out.println("-------------------------------------------------------------------------------------------------------");
                     break;
                 case 2:
-                    try {
-                        System.out.println("Select Rank [1-20]>");
-                        Scanner rank = new Scanner(System.in);
-                        int rankInput = rank.nextInt();
-                        if(rankInput > 0 && rankInput <= 20){
-                        
-                        System.out.println(albums.get(rankInput - 1).toString(option));
-                        }else{
-                            System.out.println( rankInput + " is Out of range");
-                        }
+                    boolean invalidRange = true;
+                    while (invalidRange) {
+                        try {
+                            System.out.println("\nSelect Rank [1-20] >");
+                            Scanner rank = new Scanner(System.in);
+                            int rankInput = rank.nextInt();
+                            if (rankInput > 0 && rankInput <= 20) {
+//                                invalidRange = false;
 
-                    } catch (Exception e) {
-                        System.out.println("\n" + "Rank must be an integer");
-                        
+                                System.out.println(albums.get(rankInput - 1).toString(option));
+                                System.out.println("\nSelect Another Album.........1\n" + 
+                                                   "Go Back to Menu..............0\n");
+                                
+                                Scanner userQuits = new Scanner(System.in);
+                                if (userQuits.nextInt() == 1) {
+                                } else if (userQuits.nextInt() == 0) {
+                                    invalidRange = false;                                    
+                                }
+                            } else {
+                                System.out.println("\n" + "WARNING! - " + rankInput + " is Out of range");
+
+                            }
+
+                        } catch (Exception e) {
+                            System.out.println("\n" + "WARNING! - " + "Rank must be a number between 1 and 20");
+
+                        }
                     }
 
                     break;
@@ -90,7 +82,7 @@ public class Main {
                     String searchStr = search.nextLine().toLowerCase();
                     int matchCount = 0;
                     System.out.println("Matches");
-                    
+
 //                    looping through array of album objects
                     for (int i = 0; i < albums.size(); i++) {
 //                        storing tracks of albums objects into an array
@@ -100,8 +92,8 @@ public class Main {
                             String lcStr = Albumtracks[j].toLowerCase();
 
                             if (lcStr.contains(searchStr)) {
-                                
-                                System.out.println( "\t\t" +  " Match [ " + ++matchCount + " ]");
+
+                                System.out.println("\t\t" + " Match [ " + ++matchCount + " ]");
                                 System.out.println("--------------------------------------------------");
                                 System.out.println("| Artist      | " + albums.get(i).getArtist());
                                 System.out.println("|-------------|");

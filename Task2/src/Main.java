@@ -1,5 +1,5 @@
 
-public class ApplicationRunner {
+public class Main {
     
     public static void main(String[] args) {
         
