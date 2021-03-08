@@ -47,46 +47,47 @@ public class Album {
 
         return tracks;
     }
+    public int getRank(){
+        return ranking;
+    }
+    public String getSales(){
+        return sales;
+    }
 
-//    @Override
-    public String toString(int option) {
+
+    @Override
+    public String toString() {
         StringBuilder str = new StringBuilder();
 
-        String obj = null;
-        switch (option) {
-            case 1: {
-                String headerTitles = String.format("%1s %2s %4s %-49s %-1s %-25s %1s %5s %1s %5s %1s",
-                        "|", ranking, "|", title, "|", artist, "|", year, "|", sales, "|");
-                obj = headerTitles;
-                break;
-            }
-            case 2: {
-                String headerBorder = "------------------------------------------------------------------------------------------------------";
-                String headerTitles = String.format("%2s %1s %-80s %-1s %-2s %1s %1s", "Rank", "|", "Title", "|", "Mins", "|", "Secs");
+        String obj;
+                String headerBorder = " |-------------------------------------------------------------------------------------------------------|";
+                String headerTitles = String.format("%6s %2s %-80s %-1s %-2s %1s %1s", "|Rank", "|", "Title", "|", "Mins", "|", "Secs |");
                 String albumInfo
-                        = "Title  : " + title + "\n"
-                        + "Artist : " + artist + "\n"
-                        + "Year   : " + year + "\n"
-                        + "Sales  : " + sales;
-                str.append(albumInfo).append("\n").append("Track List : ").append("\n");
+                        =
+                        "\t\t -------------------------[ALBUM]------------------------\n"
+                        +"\t\t |Title   | " + title + "\n"
+                        +"\t\t |--------|\n" 
+                        +"\t\t |Artist  | " + artist + "\n"
+                        +"\t\t |--------|\n"
+                        +"\t\t |Year    | " + year + "\n"
+                        +"\t\t |--------|\n"
+                        +"\t\t |Sales   | " + sales + "\n"
+                        +"\t\t --------------------------------------------------------\n"
+                        ;
+                str.append(albumInfo).append("\n\t\t\t\t\t[Track List]\n");
                 str.append(headerBorder).append("\n").append(headerTitles).append("\n").append(headerBorder).append("\n");
                 int x = 0;
                 for (String track : tracks) {
                     String temp = track.replaceAll("\\)", "");
                     String[] tracksTokens = temp.split("\\(|\\:");
-                    str.append(String.format("%2s %3s %-80s %-1s %-2s %3s %1s",
-                            x + 1, "|", tracksTokens[0], "|", tracksTokens[1], "|", tracksTokens[2]));
+                    str.append(String.format("%2s %2s %3s %-80s %-1s %-2s %3s %1s %3s ",
+                            "|" , (x + 1), "|", tracksTokens[0], "|", tracksTokens[1], "|", tracksTokens[2],"|"));
                     str.append("\n");
                     x++;
 
                 }
+                str.append(headerBorder).append("\n");
                 obj = str.toString();
-                break;
-            }
-            default:
-                
-                break;
-        }
         return obj;
     }
 

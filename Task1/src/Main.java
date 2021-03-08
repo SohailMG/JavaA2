@@ -25,12 +25,15 @@ public class Main {
             System.out.println("\n"
                     + "\t\t|-----------------------|" + "\n"
                     + "\t\t|\t" + "OPTIONS" + "\t\t|" + "\n"
-                    + "\t\t|-----------------------|" + "\n"
-                    + "\t\t| List albums.........1 |\n"
-                    + "\t\t| Select album........2 |\n"
-                    + "\t\t| Search titles.......3 |\n"
-                    + "\t\t| Exit................0 |\n"
-                    + "\t\t|-----------------------|" + "\n"
+                    + "\t\t|---------------|-------|" + "\n"
+                    + "\t\t| List albums   |   1   |\n"
+                    + "\t\t|---------------|-------|\n"
+                    + "\t\t| Select album  |   2   |\n"
+                    + "\t\t|---------------|-------|\n"
+                    + "\t\t| Search titles |   3   |\n"
+                    + "\t\t|---------------|-------|\n"
+                    + "\t\t| Exit          |   0   |\n"
+                    + "\t\t|---------------|-------|" + "\n"
             );
             System.out.println("");
             System.out.print("Choose Option >");
@@ -39,9 +42,11 @@ public class Main {
             switch (option) {
                 case 1:
                     System.out.println("");
-                    tableTemplate();
+                    tableTemplate();                  
                     albums.forEach((album) -> {
-                        System.out.println(album.toString(option));
+                        String headerTitles = String.format("%1s %2s %4s %-49s %-1s %-25s %1s %5s %1s %5s %1s",
+                            "|", album.getRank(), "|", album.getTitle(), "|", album.getArtist(), "|", album.getYear(), "|", album.getSales(), "|");
+                        System.out.println(headerTitles);
                     });
                     System.out.println("-------------------------------------------------------------------------------------------------------");
                     break;
@@ -55,14 +60,14 @@ public class Main {
                             if (rankInput > 0 && rankInput <= 20) {
 //                                invalidRange = false;
 
-                                System.out.println(albums.get(rankInput - 1).toString(option));
-                                System.out.println("\nSelect Another Album.........1\n" + 
-                                                   "Go Back to Menu..............0\n");
-                                
+                                System.out.println(albums.get(rankInput - 1).toString());
+                                System.out.println("\nSelect Another Album.........1\n"
+                                        + "Go Back to Menu..............0\n");
+
                                 Scanner userQuits = new Scanner(System.in);
                                 if (userQuits.nextInt() == 1) {
                                 } else if (userQuits.nextInt() == 0) {
-                                    invalidRange = false;                                    
+                                    invalidRange = false;
                                 }
                             } else {
                                 System.out.println("\n" + "WARNING! - " + rankInput + " is Out of range");
