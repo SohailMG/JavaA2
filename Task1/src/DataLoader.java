@@ -43,7 +43,7 @@ public class DataLoader {
 
                     if (ch2 == ':' || ch3 == ':') {
 
-                        albumsData.add(line);
+                    albumsData.add(line);
                     }
 
                 } else {

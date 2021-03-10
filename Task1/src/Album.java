@@ -78,6 +78,7 @@ public class Album {
                 str.append(headerBorder).append("\n").append(headerTitles).append("\n").append(headerBorder).append("\n");
                 int x = 0;
                 for (String track : tracks) {
+                    
                     String temp = track.replaceAll("\\)", "");
                     String[] tracksTokens = temp.split("\\(|\\:");
                     str.append(String.format("%2s %2s %3s %-80s %-1s %-2s %3s %1s %3s ",

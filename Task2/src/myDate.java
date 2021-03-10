@@ -17,29 +17,44 @@ public class myDate {
     private int year;
     private int day;
     private int month;
+    private int hours;
+    private int minutes;
+    private int seconds;
     
     
     public myDate(){
-        GregorianCalendar date = new GregorianCalendar();
-        year = date.get(Calendar.YEAR);
-        month = date.get(Calendar.MONTH);
-        day = date.get(Calendar.DAY_OF_MONTH);
-        
+//        GregorianCalendar date = new GregorianCalendar();
+//        year = date.get(Calendar.YEAR);
+//        month = date.get(Calendar.MONTH);
+//        day = date.get(Calendar.DAY_OF_MONTH);
+//        
     }
     
-    public myDate(long elapsedTime){
-        GregorianCalendar date = new GregorianCalendar();
-        date.setTimeInMillis(elapsedTime);
-        
-        year = date.get(Calendar.YEAR);
-        month = date.get(Calendar.MONTH);
-        day = date.get(Calendar.DAY_OF_MONTH);
-    }
     
     public myDate(int year,int month,int day){
         this.year = year;
         this.month = month;
         this.day = day;
+    }
+    public myDate(int hours,int minutes){
+        
+        this.hours = hours;
+        this.minutes = minutes;   
+        
+    }
+    public String getTime(){
+        
+        String time = "" + hours + ":" + minutes ;
+        
+        
+        return time;
+        
+    }
+    public String getDate(){
+        
+        String date = "" + day + "/" + month + "/" + year ;        
+        return date;
+        
     }
     
     public int getYear(){
@@ -64,5 +79,6 @@ public class myDate {
         this.day = day;
         
     }
+   
     
 }

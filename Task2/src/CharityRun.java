@@ -5,19 +5,23 @@
  */
 public abstract class CharityRun {
     
-    private myDate date;
-    private myDate startTime;
+    private String date;
+    private String startTime;
     
-    public CharityRun(myDate date,myDate startTime){
+    public CharityRun(String date,String startTime){
         this.date = date;
         this.startTime = startTime;
     }
     
-    public myDate getDate(){
+    
+    
+    public String getDate(){
         return date;
     }
-    public myDate getStartTime(){
+    public String getStartTime(){
         return startTime;
     }
+    
+    
     
 }
