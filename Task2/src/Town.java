@@ -13,16 +13,25 @@ public class Town extends Venue{
 
     public Town(String name) {
         super(name);
-//        this.townName = townName;
+        
     }
+
+
     
     public String getTownName(){
         return townName;
     }
+    
+
+    @Override
+    public void place(Place place) {
+        super.setPlace(place);
+        
+    }
     @Override
     public String toString(){
         
-        String obj = "Town : " + super.getName() ;
+        String obj = ""  + super.getName() ;
         
         return obj;
         

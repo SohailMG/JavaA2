@@ -1,4 +1,7 @@
 
+import java.util.ArrayList;
+
+
 
 /**
  *
@@ -7,8 +10,8 @@
 public class FiveKmRun extends CharityRun{
     
     Park park;
-    public FiveKmRun(String date, String startTime,Park park) {
-        super(date, startTime);
+    public FiveKmRun(String date, String startTime,Park park,ArrayList<RunEntry> entry) {
+        super(date, startTime,entry);
         this.park = park;
     }
    
@@ -20,7 +23,7 @@ public class FiveKmRun extends CharityRun{
        String obj = "FIVE k \nDate - " 
                +  super.getDate() +"\n" 
                + "Time - " +  super.getStartTime() 
-               + "\n" +  getPark() ;
+               + "\n" + "Park :"+  getPark() ;
        
        
        return obj;

@@ -11,20 +11,26 @@
 public class Park extends Venue{
     
     private int numChangingFacilites;
-    
 
-    public Park(String name,int numChangingFacilites ) {
-        super(name);
+    public Park( String name , int numChangingFacilites) {
+        super( name);
         this.numChangingFacilites = numChangingFacilites;
-        
-    }
+    } 
+
+   
     public int getNumChangingFacilites(){
         return numChangingFacilites;
     }
+
+    @Override
+    public void place(Place place) {
+        super.setPlace(place);
+    }
+    
     @Override
     public String toString(){
         
-        String obj = "Park : " + super.getName() +"\n" + "Chaning Facilities" + getNumChangingFacilites();
+        String obj =  super.getName() +"\n" + "Chaning Facilities :" + getNumChangingFacilites();
         
         return obj;
         

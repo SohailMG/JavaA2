@@ -25,4 +25,9 @@ public class Competitor {
         return age;
     }
     
+    public String toString(){
+        String obj = "" + getName() + " " + getAge();
+        
+        return obj;
+    }
 }
