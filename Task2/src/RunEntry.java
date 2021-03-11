@@ -11,13 +11,27 @@
 public class RunEntry {
     
     private int eventNumber;
+    private Competitor[] competitor;
     
-    public RunEntry(int eventNumber){
+    public RunEntry(int eventNumber,Competitor[] competitor){
         this.eventNumber = eventNumber;
+        this.competitor = competitor;
     }
     
     public int getEventNum(){
         return eventNumber;
                 
+    }
+    public int getEntryCount(){
+        return competitor.length;
+    }
+    
+    @Override
+    public String toString(){
+        String obj=
+                    "Entry Count :" ;
+        
+        return obj;
+        
     }
 }

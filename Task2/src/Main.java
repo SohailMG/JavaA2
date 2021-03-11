@@ -2,23 +2,36 @@
 public class Main {
 
     public static void main(String[] args) {
+        Park park = new Park("Hyde Park", 10);
+        Town town = new Town("Harrow");
+        
+   
 
-        FiveKmRun fiveKRun = new FiveKmRun(new myDate(1998, 10, 02).getDate(), new myDate(10, 30).getTime());
-        FiveKmRun fiveKRun2 = new FiveKmRun(new myDate(2020, 02, 10).getDate(), new myDate(14, 30).getTime());
+        FiveKmRun fiveKRun = new FiveKmRun(new myDate(1998, 10, 02).getDate(), new myDate(10, 30).getTime(),park);
+        
         HalfMarathon halfMarathon
                 = new HalfMarathon(
                         new myDate(2021, 9, 9).getDate(),
                         new myDate(10, 30).getTime(),
-                        10);
+                        10,park,Place.PARK);
+        HalfMarathon halfMarathon2
+                = new HalfMarathon(
+                        new myDate(2021, 9, 9).getDate(),
+                        new myDate(10, 30).getTime(),
+                        10,town,Place.TOWN);
 
-        System.out.println(halfMarathon);
-        System.out.println(fiveKRun);
+//        System.out.println(halfMarathon.toString());
+//        System.out.println("");
+//        System.out.println(halfMarathon2.toString());
         
-        Town town = new Town("Harrow");
-        Park park = new Park("Hyde Park", 10);
+        Competitor c1 = new Competitor("John", 20);
+        Competitor c2 = new Competitor("Tom", 22);
+        Competitor[] entries = {c1,c2} ;
         
-        System.out.println(town);
-        System.out.println(park);
+        
+        RunEntry entry = new RunEntry(1234, entries);
+        
+        System.out.println(entry.getEntryCount());
 
     }
 

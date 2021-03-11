@@ -7,6 +7,7 @@ public abstract class CharityRun {
     
     private String date;
     private String startTime;
+    private RunEntry entry;
     
     public CharityRun(String date,String startTime){
         this.date = date;
