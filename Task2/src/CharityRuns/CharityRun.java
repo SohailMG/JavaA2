@@ -1,3 +1,5 @@
+package CharityRuns;
+
 
 import java.util.ArrayList;
 
@@ -13,16 +15,14 @@ public abstract class CharityRun {
     private String startTime;
     private ArrayList<RunEntry> entry;
     private ArrayList<CharityRun> charityRuns;
+    private int entryCount;
     
     public CharityRun(String date,String startTime,ArrayList<RunEntry> entry){
         this.date = date;
         this.startTime = startTime;
+        this.entryCount = entry.size();
         
     }
-    
-//    public void setCharityRuns(ArrayList<Object> runs){
-//        this.charityRuns = runs;
-//    }
     public ArrayList<CharityRun> getCharityRuns(){
         
         return charityRuns;
@@ -33,6 +33,9 @@ public abstract class CharityRun {
     }
     public String getStartTime(){
         return startTime;
+    }
+    public int getEntryCount(){
+        return entryCount;
     }
     
     

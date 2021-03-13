@@ -1,3 +1,5 @@
+package CharityRuns;
+
 
 import java.util.HashMap;
 
@@ -37,14 +39,14 @@ public class RunEntry {
 
     }
 
-    @Override
-    public String toString() {
-        String obj
-                = "Name      :  " + competitor.getName() + "\n"
-                + "Age       :  " + competitor.getAge() + "\n"
-                + "Entry Num :  " + getEventNum();
-
-        return obj;
-
-    }
+//    @Override
+//    public String toString() {
+//        String obj
+//                = "Name      :  " + competitor.getName() + "\n"
+//                + "Age       :  " + competitor.getAge() + "\n"
+//                + "Entry Num :  " + getEventNum();
+//
+//        return obj;
+//
+//    }
 }

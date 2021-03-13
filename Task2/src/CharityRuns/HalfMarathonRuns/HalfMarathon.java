@@ -1,6 +1,14 @@
+package CharityRuns.HalfMarathonRuns;
+
 
 import java.util.ArrayList;
-
+//import CharityRuns.FiveKRuns.
+import CharityRuns.CharityRun;
+import CharityRuns.Place;
+import CharityRuns.RunEntry;
+import CharityRuns.Venues.Park;
+import CharityRuns.Venues.Town;
+import CharityRuns.Venues.Venue;
 /**
  *
  * @author sohailgsais
@@ -82,22 +90,14 @@ public class HalfMarathon extends CharityRun {
 
         String obj = "";
 
-        if (getPlace() == Place.PARK) {
+//        if (getPlace() == Place.PARK) {
 
             obj = "Half Marathon \nDate - "
                     + super.getDate() + "\n" + "Time - "
                     + super.getStartTime() + "\n"
                     + "Water Stations : " + getNumOfWaterStations() + "\n"
-                    + getPlace() + " :" + getVenue()
-                    + "Count : " + getCount();
-        } else if (getPlace() == Place.TOWN) {
-            obj = "Half Marathon \nDate - "
-                    + super.getDate() + "\n" + "Time - "
-                    + super.getStartTime() + "\n"
-                    + "Water Stations : " + getNumOfWaterStations() + "\n"
-                    + getPlace() + " :" + getVenue()
-                    + "Count : " + getCount();
-        }
+                    + getPlace() + " :" + getVenue() + "\n"
+                    + "Entry Count : " + super.getEntryCount();
 
         return obj;
     }

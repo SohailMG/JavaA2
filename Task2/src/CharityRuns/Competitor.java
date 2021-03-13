@@ -1,3 +1,4 @@
+package CharityRuns;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,32 +9,27 @@
  *
  * @author sohailgsais
  */
-public abstract class Venue {
-    
+public class Competitor {
     private String name;
-    Place place;
+    private int age;
     
-    public Venue(String name){
+    public Competitor(String name , int age){
         this.name = name;
-        
+        this.age = age;
         
     }
-    public abstract void place(Place place);
     
-    public void setPlace(Place place){
-        this.place = place;
-    }
     public String getName(){
         return name;
     }
-    public Place getPlace(){
-        return place;
+    public int getAge(){
+        return age;
     }
     
     @Override
     public String toString(){
-        return "Venue : " + getPlace() +  " Name : "+ getName();
-    }
+        String obj = "" + getName() + " " + getAge();
         
-    
+        return obj;
+    }
 }
