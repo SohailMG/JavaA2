@@ -1,5 +1,7 @@
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Scanner;
 
 //TODO: MAKE LOADER CLASS FOR FILE 
@@ -26,6 +28,7 @@ public class Main {
             int option = s.nextInt();
             switch (option) {
                 case 1:
+                    
                     listAllAlbums(albums);
                     break;
                 case 2:
@@ -193,14 +196,15 @@ public class Main {
             // storing title artist year and sales into a class object
             for (String split1 : split) {
                 ranking = Integer.parseInt(split[0]);
-                title = split[1];
-                artist = split[2];
-                year = split[3];
-                sales = split[4];
+                title   = split[1];
+                artist  = split[2];
+                year    = split[3];
+                sales   = split[4];
             }
             // calling split tracks and passing it the current rank of the album
             String[] alTracks = splitTracks(albumsTracks, i);
             albums.add(new Album(ranking, title, artist, year, sales, alTracks));
+            Collections.sort(albums);
 
         }
     }

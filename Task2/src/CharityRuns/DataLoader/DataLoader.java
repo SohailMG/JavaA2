@@ -48,6 +48,7 @@ public class DataLoader implements DAO{
          
          addCompetitors(event1, comps); 
          halfMarathonRuns.add(new HalfMarathon(new myDate(2021, 7, 9).getDate(),new myDate(14, 30).getTime(), 10, park, Place.PARK, " Hyde Park", comps));
+         halfMarathonRuns.add(new HalfMarathon(new myDate(2021, 7, 10).getDate(),new myDate(16, 30).getTime(), 33, town, Place.TOWN, " London", comps));
          
          
          comps.clear();

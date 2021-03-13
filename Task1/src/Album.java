@@ -1,5 +1,4 @@
 
-import java.util.Arrays;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -10,7 +9,7 @@ import java.util.Arrays;
  *
  * @author sohailgsais
  */
-public class Album {
+public class Album  implements Comparable<Album>{
 
     private String title;
     private String artist;
@@ -55,6 +54,17 @@ public class Album {
     }
 
 
+    @Override
+    public int compareTo(Album other){
+        if (other.getRank() > this.getRank()) {
+            return -1;
+            
+        }else if (this.getRank() < other.getRank()) {
+            return 1;
+            
+        }
+        return 0;
+    }
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();

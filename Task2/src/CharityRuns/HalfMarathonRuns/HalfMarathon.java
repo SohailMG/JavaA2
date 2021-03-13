@@ -88,18 +88,18 @@ public class HalfMarathon extends CharityRun {
     @Override
     public String toString() {
 
-        String obj = "";
+        StringBuilder sb = new StringBuilder();
+        String obj;
+        String eventData = String.format("%2s %2s %-10s %2s %-6s %2s %2s %13s %3s %9s %3s", "Half Marathon","|",super.getDate(), "|", super.getStartTime(), "|", getNumOfWaterStations(), "|", super.getEntryCount(),"|",getPlace());
 
-//        if (getPlace() == Place.PARK) {
-
-            obj = "Half Marathon \nDate - "
+            obj =   "\nHalf Marathon \nDate - "
                     + super.getDate() + "\n" + "Time - "
                     + super.getStartTime() + "\n"
                     + "Water Stations : " + getNumOfWaterStations() + "\n"
                     + getPlace() + " :" + getVenue() + "\n"
                     + "Entry Count : " + super.getEntryCount();
-
-        return obj;
+        sb.append(eventData);
+        return sb.toString();
     }
 
 }
