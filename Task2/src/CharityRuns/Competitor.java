@@ -12,10 +12,12 @@ package CharityRuns;
 public class Competitor {
     private String name;
     private int age;
+    private String eventType;
     
-    public Competitor(String name , int age){
+    public Competitor(String name , int age,String eventType){
         this.name = name;
         this.age = age;
+        this.eventType = eventType;
         
     }
     
@@ -24,6 +26,9 @@ public class Competitor {
     }
     public int getAge(){
         return age;
+    }
+    public String getEventType(){
+        return eventType;
     }
     
     @Override

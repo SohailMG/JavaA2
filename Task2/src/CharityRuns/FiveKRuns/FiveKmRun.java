@@ -29,16 +29,12 @@ public class FiveKmRun extends CharityRun{
     }
     @Override
     public String toString(){
-       String obj = "FIVE k \nDate - " 
-               +  super.getDate() +"\n" 
-               + "Time - " +  super.getStartTime() 
-               + "\n" + "Park : "+  getPark() + "\n"
-               + "Entry Count : " + super.getEntryCount()
-               
-               ;
+        
+       String eventData = String.format("%2s %4s %-10s %2s %-6s %2s  %3s", "Five Km Run","|",super.getDate(), "|", super.getStartTime(),"|","PARK");
+     
        
        
-       return obj;
+       return eventData;
        
    }
     
