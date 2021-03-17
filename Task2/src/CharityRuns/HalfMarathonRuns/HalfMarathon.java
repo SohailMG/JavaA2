@@ -4,11 +4,13 @@ package CharityRuns.HalfMarathonRuns;
 import java.util.ArrayList;
 //import CharityRuns.FiveKRuns.
 import CharityRuns.CharityRun;
+import CharityRuns.Competitor;
 import CharityRuns.Place;
 import CharityRuns.RunEntry;
 import CharityRuns.Venues.Park;
 import CharityRuns.Venues.Town;
 import CharityRuns.Venues.Venue;
+import java.util.HashMap;
 /**
  *
  * @author sohailgsais
@@ -81,6 +83,9 @@ public class HalfMarathon extends CharityRun {
 
     public int getCount() {
         return entryCount;
+    }
+    public HashMap<Integer, Competitor> getCompName(){
+        return super.getEntries();
     }
 
     @Override

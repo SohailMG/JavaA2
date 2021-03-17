@@ -16,12 +16,12 @@ public class RunEntry {
 
     private int eventNumber;
     private Competitor competitor;
-    private HashMap<Integer, Competitor[]> entries = new HashMap<>();
+    private HashMap<Integer, Competitor> entries = new HashMap<>();
 
     public RunEntry(int eventNumber, Competitor competitor) {
         this.eventNumber = eventNumber;
         this.competitor = competitor;
-//        this.entries = new HashMap<>();
+        entries.put(eventNumber, competitor);
 //        entries.put(eventNumber, competitor);
     }
 
@@ -33,20 +33,20 @@ public class RunEntry {
 //        return competitor.length;
 //    }
 
-    public HashMap getEntries() {
+    public HashMap<Integer, Competitor> getEntries() {
 
         return entries;
 
     }
 
-//    @Override
-//    public String toString() {
-//        String obj
-//                = "Name      :  " + competitor.getName() + "\n"
-//                + "Age       :  " + competitor.getAge() + "\n"
-//                + "Entry Num :  " + getEventNum();
-//
-//        return obj;
-//
-//    }
+    @Override
+    public String toString() {
+        String obj
+                = "Name      :  " + competitor.getName() + "\n"
+                + "Age       :  " + competitor.getAge() + "\n"
+                + "Entry Num :  " + getEventNum();
+
+        return obj;
+
+    }
 }

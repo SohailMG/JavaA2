@@ -1,6 +1,5 @@
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -22,32 +21,37 @@ public class Main {
         // maing program logic
         boolean activeMenu = true;
         while (activeMenu) {
-            displayOptions();
-            System.out.print("Choose Option >");
-            Scanner s = new Scanner(System.in);
-            int option = s.nextInt();
-            switch (option) {
-                case 1:
-                    
-                    listAllAlbums(albums);
-                    break;
-                case 2:
-                    displaySelectedAlbum(albums);
-                    break;
-                case 3:
-                    System.out.println("Enter Search Word or Phrase  > ");
-                    Scanner search = new Scanner(System.in);
-                    String searchStr = search.nextLine().toLowerCase();
-                    int matchCount = 0;
-                    System.out.println("Matches");
-                    displaySearchResults(albums, searchStr, matchCount);
-                    break;
-                case 0:
-                    activeMenu = false;
-                    break;
-                default:
-                    System.out.println("\n" + "Out of range" + "\n");
-                    break;
+            try {
+
+                displayOptions();
+                System.out.print("Choose Option >");
+                Scanner menuScanner = new Scanner(System.in);
+                int option = menuScanner.nextInt();
+                switch (option) {
+                    case 1:
+                        listAllAlbums(albums);
+                        break;
+                    case 2:
+                        displaySelectedAlbum(albums);
+                        break;
+                    case 3:
+                        System.out.println("Enter Search Word or Phrase  > ");
+                        Scanner search = new Scanner(System.in);
+                        String searchStr = search.nextLine().toLowerCase();
+                        int matchCount = 0;
+                        System.out.println("Matches");
+                        displaySearchResults(albums, searchStr, matchCount);
+                        break;
+                    case 0:
+                        activeMenu = false;
+                        break;
+                    default:
+                        System.out.println("\n" + option + " is Out of range" + "\n");
+                        break;
+
+                }
+            } catch (Exception e) {
+                System.out.println("\nWARNING! - Invalid option must be between [0-3]\n");
             }
         }
     }
@@ -71,11 +75,12 @@ public class Main {
         );
         System.out.println("");
     }
-    
+
     /**
-     * loops through an arraylist of album objects and outputs 
-     * their details in a table like format
-     * @param albums 
+     * loops through an arraylist of album objects and outputs their details in
+     * a table like format
+     *
+     * @param albums
      */
     public static void listAllAlbums(ArrayList<Album> albums) {
         System.out.println("");
@@ -87,12 +92,13 @@ public class Main {
         });
         System.out.println("-------------------------------------------------------------------------------------------------------");
     }
-    
+
     /**
-     * presents user with an option to select an album and
-     * displays invokes the toString method to display the 
-     * selected album object as well as it's track list
-     * @param albums 
+     * presents user with an option to select an album and displays invokes the
+     * toString method to display the selected album object as well as it's
+     * track list
+     *
+     * @param albums
      */
     public static void displaySelectedAlbum(ArrayList<Album> albums) {
         boolean invalidRange = true;
@@ -103,11 +109,12 @@ public class Main {
                 int rankInput = rank.nextInt();
                 if (rankInput > 0 && rankInput <= 20) {
                     System.out.println(albums.get(rankInput - 1).toString());
+                    Scanner status = new Scanner(System.in);
                     System.out.println("\nSelect Another Album.........1\n"
                             + "Go Back to Menu..............0\n");
-                    
-                    if (rank.nextInt() == 1) {
-                    } else if (rank.nextInt() == 0) {
+                    int selectAnother = status.nextInt();
+                    if (selectAnother == 1) {
+                    } else if (selectAnother == 0) {
                         invalidRange = false;
                     }
                 } else {
@@ -115,7 +122,8 @@ public class Main {
 
                 }
 
-            } catch (Exception e) {
+            } catch (Exception InputMismatchException) {
+
                 System.out.println("\n" + "WARNING! - " + "Rank must be a number between 1 and 20");
 
             }
@@ -123,15 +131,15 @@ public class Main {
     }
 
     public static void displaySearchResults(ArrayList<Album> albums, String searchStr, int matchCount) {
-        //                    looping through array of album objects
+        //looping through array of album objects
         for (int i = 0; i < albums.size(); i++) {
-//                        storing tracks of albums objects into an array
+//storing tracks of albums objects into an array
             String[] Albumtracks = albums.get(i).getTracks();
 //looping through tracks containing search string
             for (int j = 0; j < Albumtracks.length; j++) {
-                String lcStr = Albumtracks[j].toLowerCase();
-                if (lcStr.contains(searchStr)) {
-                    String foundTrack = lcStr.replaceAll(searchStr, searchStr.toUpperCase());
+                String lcTrack = Albumtracks[j].toLowerCase();
+                if (lcTrack.contains(searchStr)) {
+                    String foundTrack = lcTrack.replaceAll(searchStr, searchStr.toUpperCase());
                     System.out.println("\t\t+-------------+");
                     System.out.println("\t\t" + "| Match [ " + ++matchCount + " ] |");
                     System.out.println("+-------------+-+-------------+-------------------");
@@ -192,14 +200,14 @@ public class Main {
         for (int i = 0; i < albumsData.size(); i++) {
             String title = "", artist = "", year = "", sales = "";
             int ranking = 0;
-            String[] split = albumsData.get(i).split(":");
+            String[] splitedData = albumsData.get(i).split(":");
             // storing title artist year and sales into a class object
-            for (String split1 : split) {
-                ranking = Integer.parseInt(split[0]);
-                title   = split[1];
-                artist  = split[2];
-                year    = split[3];
-                sales   = split[4];
+            for (String split1 : splitedData) {
+                ranking = Integer.parseInt(splitedData[0]);
+                title  = splitedData[1];
+                artist = splitedData[2];
+                year   = splitedData[3];
+                sales  = splitedData[4];
             }
             // calling split tracks and passing it the current rank of the album
             String[] alTracks = splitTracks(albumsTracks, i);

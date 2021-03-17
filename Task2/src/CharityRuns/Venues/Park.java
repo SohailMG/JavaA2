@@ -34,7 +34,7 @@ public class Park extends Venue{
     @Override
     public String toString(){
         
-        String obj = super.getName() +"\n" + "Chaning Facilities  : " + getNumChangingFacilites();
+        String obj = super.getName() +"\n" + "|Chaning Facilities  : " + getNumChangingFacilites();
         
         return obj;
         

@@ -2,6 +2,7 @@ package MainApplication;
 
 import CharityRuns.Coordinator;
 import CharityRuns.presentation.Display;
+import CharityRuns.Competitor;
 import java.util.Scanner;
 
 public class Main {
@@ -10,18 +11,23 @@ public class Main {
 
         Coordinator coord = new Coordinator();
         Display display = new Display(coord);
+        Competitor c = new Competitor();
+        
+        
 
-        try {
+//        try {
             int eventType = displayMenu();
             display.displayUI(eventType);
+            
             Scanner selectedEvent = new Scanner(System.in);
             System.out.println("Select an Event > ");
-            int s = selectedEvent.nextInt();
-            
+            int s = selectedEvent.nextInt();           
             display.displaySelectedEvenet(s - 1, eventType);
+            
 
-        } catch (Exception e) {
-        }
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
     }
 
     public static int displayMenu() {

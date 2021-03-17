@@ -40,7 +40,7 @@ public class DataLoader implements DAO {
 
     @Override
     public void load() {
-        String[][] event1 = {{"John", "19", "HalfMarathon"}, {"Smith", "30", "HalfMarathon"}};
+        String[][] event1 = {{"John", "19", "HalfMarathon"}, {"John", "30", "HalfMarathon"}};
         String[][] event2 = {{"Sam", "20", "FiveKmRun"}, {"Holy", "19", "FiveKmRun"}, {"Sarah", "30", "FiveKmRun"}};
         ArrayList<RunEntry> comps = new ArrayList<>();
 
@@ -58,24 +58,34 @@ public class DataLoader implements DAO {
     }
 
     public void addCompetitors(String[][] comp, ArrayList<RunEntry> comps) {
+        ArrayList<String> addedComps = new ArrayList<>();
         for (String[] comp1 : comp) {
             String[] split = Arrays.toString(comp1).replaceAll("\\[|\\]", "").split(",");
-
+            // assigning competitor name,age and event type
+            String compName =  split[0];
+            int compAge =Integer.parseInt(split[1].trim());
+            String eventType = split[2];
+            
+            // generating a random uniq event number
             Random random = new Random();
             int ran = random.nextInt(100 - 10) + 10;
-
-            
-            if (split[2].contains("HalfMarathon")) {
-
-                if (Integer.parseInt(split[1].trim()) < 16) {
-                    System.out.println("\nALERT! - [" + split[0] + "]" + " was denied entry to " + split[2] + " must be 16+ \n");
+            // checking event type of each competitor
+            if (eventType.contains("HalfMarathon")) {
+                
+                if (compAge < 16) {
+                    System.out.println("\nALERT! - [" + compName+ "]" 
+                            + " was denied entry to " + eventType + " must be 16+ \n");
+                }else if (addedComps.contains(compName)){
+                    System.out.println(compName + " Already has an Entry");
                 } else {
-                    comps.add(new RunEntry(ran, (new Competitor(split[0], Integer.parseInt(split[1].trim()), split[2]))));
+                    comps.add(new RunEntry(ran, (new Competitor(compName, compAge, eventType))));
+                    addedComps.add(split[0]);
+                    
                 }
 
             } else {
 
-                comps.add(new RunEntry(ran, (new Competitor(split[0], Integer.parseInt(split[1].trim()), split[2]))));
+                comps.add(new RunEntry(ran, (new Competitor(compName,compAge, eventType))));
             }
 
         }

@@ -14,6 +14,9 @@ public class Competitor {
     private int age;
     private String eventType;
     
+    public Competitor(){
+        
+    }
     public Competitor(String name , int age,String eventType){
         this.name = name;
         this.age = age;
