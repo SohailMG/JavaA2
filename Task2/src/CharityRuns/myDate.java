@@ -25,11 +25,7 @@ public class myDate {
     
     
     public myDate(){
-//        GregorianCalendar date = new GregorianCalendar();
-//        year = date.get(Calendar.YEAR);
-//        month = date.get(Calendar.MONTH);
-//        day = date.get(Calendar.DAY_OF_MONTH);
-//        
+        
     }
     
     
