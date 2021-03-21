@@ -48,26 +48,15 @@ public class MainProgramRunner extends Application {
         launch(args);
     }
 
-    Pane getStackPane() {
-        StackPane pane = new StackPane();
-
-        return pane;
-    }
-
-    Label getLabel(String text, int top, int right, int bottom, int left) {
-        Label label = new Label(text);
-        label.setPadding(new Insets(top, right, bottom, left));
-        label.setStyle("-fx-border-color: white;" + "-fx-border-radius:10;" + "-fx-font:40 Ariel");
-
-        return label;
-    }
-
+    // creating class objects for each section of UI
     TopContainer topContainer = new TopContainer();
+    LightControl lightsControl = new LightControl();
+    MedicalCases medicalCases = new MedicalCases();
     TemperatureControl tempControl = new TemperatureControl();
     PressureControl pressureControl = new PressureControl();
     HumidityControl humidityControl = new HumidityControl();
-    LightControl lightsControl = new LightControl();
-    MedicalCases medicalCases = new MedicalCases();
+
+    // main layout container
     Pane getBorderPane() {
         BorderPane bPane = new BorderPane();
         bPane.setBackground(new Background(new BackgroundFill(Color.valueOf("rgb(101,67,33)"), new CornerRadii(0), Insets.EMPTY)));
@@ -82,6 +71,7 @@ public class MainProgramRunner extends Application {
         return bPane;
     }
 
+    // container of the bottom section of the UI
     Pane bottomContainer() {
         HBox container = new HBox(2);
         container.getChildren().add(lightsControl.lightControlContainer());
@@ -90,7 +80,5 @@ public class MainProgramRunner extends Application {
 
         return container;
     }
-
-
 
 }

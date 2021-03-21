@@ -8,25 +8,39 @@
 import java.io.File;
 import java.nio.file.Paths;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 /**
  *
  * @author sohailgsais
  */
 public class HumidityControl {
-       // CENTRE
+     Label temp;
+     int humidityCounter = 35;
+     final int MAXHUMIDITY = 55;
+     final int MINHUMIDITY = 30;
+       
 
     Pane humidityContainer() {
         StackPane content = new StackPane();
-        content.getChildren().add(humidityControlContainer());
+        Label title = new Label("Humidity Control");
+        StackPane.setAlignment(title, Pos.TOP_LEFT);
+//        title.setPadding();
+        title.setBackground(new Background(new BackgroundFill(Color.rgb(101,67,33), new CornerRadii(5.0), new Insets(-5.0))));       ;
+        title.setTextFill(Color.WHITE);
+        content.getChildren().addAll(humidityControlContainer(),title);
         content.setPadding(new Insets(10, 10, 10, 30));
 
         return content;
@@ -38,25 +52,26 @@ public class HumidityControl {
         container.getChildren().add(humidityControls());
         container.getChildren().add(humidityControlBtns());
         container.setStyle("-fx-border-color: white;" + "-fx-border-radius:10;" + "-fx-border-width:2;");
-        container.setPadding(new Insets(10, 0, 0, 30));
+        container.setPadding(new Insets(30, 0, 0, 30));
 
         return container;
     }
 
-    Label temp;
-    int tempCounter = 110;
+   
 
     Pane humidityControls() {
         HBox controls = new HBox(3);
 
-        String tmp = Integer.toString(tempCounter);
+        String tmp = Integer.toString(humidityCounter);
         temp = getLabel(tmp, 10, 10, 10, 10);
         Label tempType = getLabel("%", 10, 10, 10, 10);
         temp.setStyle("-fx-border-color: none;" + "-fx-border-radius:0;"
-                + "-fx-font:30 Ariel");
+                + "-fx-font:50 Ariel");
         tempType.setStyle("-fx-border-color: none;" + "-fx-border-radius:0;"
-                + "-fx-font:15 Ariel");
+                + "-fx-font:20 Ariel");
 
+        temp.setTextFill((javafx.scene.paint.Color.RED));
+        tempType.setTextFill((javafx.scene.paint.Color.WHITE));
         controls.getChildren().add(getImage("humidity-icon.png", 50, 50));
         controls.getChildren().add(temp);
         controls.getChildren().add(tempType);
@@ -73,11 +88,11 @@ public class HumidityControl {
         btnUp.setStyle("-fx-border-radius:10;");
 
         btnUp.setOnAction(e -> {
-            String tmp = Integer.toString(tempCounter);
+            String tmp = Integer.toString(humidityCounter);
 
-            if (tempCounter >= 50 && tempCounter <= 120) {
+            if (humidityCounter <= MAXHUMIDITY) {
                 temp.setText(tmp);
-                tempCounter += 10;
+                humidityCounter++;
             }
 
         });
@@ -88,17 +103,17 @@ public class HumidityControl {
         btnDown.setStyle("-fx-border-radius:10;");
 
         btnDown.setOnAction(e -> {
-            String tmp = Integer.toString(tempCounter);
+            String tmp = Integer.toString(humidityCounter);
 
-            if (tempCounter >= 50 && tempCounter <= 120) {
+            if (humidityCounter >= MINHUMIDITY ) {
                 temp.setText(tmp);
-                tempCounter -= 10;
+                humidityCounter--;
             }
 
         });
         btns.setPadding(new Insets(10));
-        btns.getChildren().add(btnUp);
         btns.getChildren().add(btnDown);
+        btns.getChildren().add(btnUp);
 
         btns.setSpacing(20);
 
@@ -107,7 +122,7 @@ public class HumidityControl {
          ImageView getImage(String imgName, int height, int width) {
 
         String imgPath = System.getProperty("user.dir") + File.separator + "images" + File.separator + imgName;
-//        String imgPath = "/Users/sohailgsais/CST2110 OOP/AssignmentDownload/Task3/images/" + imgName;
+//        String imgPath = System.getProperty("user.dir") + File.separator + "images" + File.separator + imgName;
         String imgURI = Paths.get(imgPath).toUri().toString();
         ImageView imageView = new ImageView(new Image(imgURI));
 

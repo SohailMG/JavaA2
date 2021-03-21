@@ -9,10 +9,15 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -67,7 +72,6 @@ public class TopContainer {
         timeLine.setCycleCount(Timeline.INDEFINITE);
         timeLine.setAutoReverse(false);
 
-
         startBtn.setOnAction((ActionEvent e) -> {
 
             timeLine.play();
@@ -75,8 +79,8 @@ public class TopContainer {
         stopBtn.setOnAction(e -> {
             timeLine.pause();
         });
-        
-         resetBtn.setOnAction(e -> {
+
+        resetBtn.setOnAction(e -> {
             hours = 0;
             mins = 0;
             secs = 0;
@@ -85,17 +89,33 @@ public class TopContainer {
             timer.setText("00:00:00");
         });
 
-
         return pane;
     }
 
     Pane topSection() {
-        HBox container = new HBox();
+        HBox container = new HBox(2);
+        StackPane clock = new StackPane();
+        StackPane elapsTime = new StackPane();
 
+        Label timeTitle = new Label("Day Time Clock");
+        StackPane.setAlignment(timeTitle, Pos.TOP_LEFT);
+        
+        timeTitle.setBackground(new Background(new BackgroundFill(Color.rgb(101, 67, 33), new CornerRadii(5.0), new Insets(-5.0))));
+        timeTitle.setTextFill(Color.WHITE);
+        
         Label time = getLabel("12:30:22", 40, 70, 50, 70);
+        clock.getChildren().addAll(time,timeTitle);
         time.setTextFill(Color.GREEN);
-        container.getChildren().add(time);
-        container.getChildren().add(elapsedTime());
+        container.getChildren().add(clock);
+        
+        Label countDownTitle = new Label("Elapsed Time");
+        StackPane.setAlignment(countDownTitle, Pos.TOP_LEFT);
+        
+        countDownTitle.setBackground(new Background(new BackgroundFill(Color.rgb(101, 67, 33), new CornerRadii(5.0), new Insets(-5.0))));
+        countDownTitle.setTextFill(Color.WHITE);
+        
+        elapsTime.getChildren().addAll(elapsedTime(),countDownTitle);
+        container.getChildren().add(elapsTime);
         container.setSpacing(30);
         container.setPadding(new Insets(10, 10, 10, 30));
 
@@ -155,7 +175,6 @@ public class TopContainer {
         String scs = String.format("%02d", secs++);
         String time = hrs + ":" + mns + ":" + scs;
 
-        
         timer.setText(time);
 
     }

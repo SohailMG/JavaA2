@@ -1,12 +1,18 @@
 
+import java.io.File;
 import java.nio.file.Paths;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -17,24 +23,23 @@ import javafx.scene.shape.Rectangle;
  */
 public class LightControl {
 
-    int lightsCounter, rgbRed, rgbBlue, rgbGreen;
-
-    public LightControl() {
-        this.lightsCounter = 0;
-        this.rgbBlue = 0;
-        this.rgbGreen = 120;
-        this.rgbRed = 102;
-    }
+    int lightsCounter;
+    int[] redGreenChanges = {102, 153, 204, 255, 255, 255};
+    int[] blueChanges = {0, 0, 0, 0, 153, 204};
 
     Pane lightControlContainer() {
         VBox lightsContainer = new VBox(3);
+        
         HBox lights1 = new HBox(3);
         HBox lights2 = new HBox(3);
         HBox lights3 = new HBox(3);
+        
+        
+
+ 
 
         CustomButton incBtn = new CustomButton("+", 40, 40);//btn
         lights1.getChildren().add(incBtn);
-
         lights1.getChildren().add(controlLights());            //lights
         CustomButton decBtn = new CustomButton("-", 40, 40);
         lights1.getChildren().add(decBtn);
@@ -67,10 +72,25 @@ public class LightControl {
         lightsContainer.getChildren().add(lights1);
         lightsContainer.getChildren().add(lights2);
         lightsContainer.getChildren().add(lights3);
-        
-        increasLights( incBtn,lights1 , decBtn);
-        increasLights( incBtn2,lights2, decBtn2);
-        increasLights( incBtn3,lights3, decBtn3);
+
+        incBtn.setOnAction((event) -> {
+            lightsCounter = 0;
+            increasLights(incBtn, lights1);
+        });
+        decreaseLights(decBtn, lights1);
+
+        incBtn2.setOnAction((event) -> {
+            lightsCounter = 0;
+            increasLights(incBtn2, lights2);
+
+        });
+        decreaseLights(decBtn2, lights2);
+
+        incBtn3.setOnAction((event) -> {
+            lightsCounter = 0;
+            increasLights(incBtn3, lights3);
+        });
+        decreaseLights(decBtn3, lights3);
 
         lightsContainer.setStyle("-fx-border-color: white;" + "-fx-border-radius:8;" + "-fx-border-width:2;");
         lightsContainer.setPadding(new Insets(20, 30, 20, 30));
@@ -79,13 +99,14 @@ public class LightControl {
 
     }
 
-    int rgbCounter = 40;
-
     Pane controlLights() {
         HBox lights1 = new HBox(6);
         HBox lightsContainer = new HBox();
+        
+        
+        final int MAXLIGHTS = 6;
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < MAXLIGHTS; i++) {
             Rectangle rectangle = new Rectangle(40, 20);
             lights1.getChildren().add(rectangle);
             rectangle.setFill(Color.rgb(40, 40, 0));
@@ -100,8 +121,7 @@ public class LightControl {
 
     ImageView getImage(String imgName, int height, int width) {
 
-//        String imgPath = System.getProperty("user.dir") + File.separator + "images" + File.separator + "thermometer-icon.png";
-        String imgPath = "/Users/sohailgsais/CST2110 OOP/AssignmentDownload/Task3/images/" + imgName;
+        String imgPath = System.getProperty("user.dir") + File.separator + "images" + File.separator + imgName;
         String imgURI = Paths.get(imgPath).toUri().toString();
         ImageView imageView = new ImageView(new Image(imgURI));
 
@@ -120,31 +140,41 @@ public class LightControl {
         return label;
     }
 
-    public void increasLights(Button btn,HBox lights,Button dec) {
+    public void increasLights(Button btn, HBox lights) {
         btn.setOnAction((event) -> {
-            
-            HBox mainWrapper = (HBox) lights.getChildren().get(1);
-            HBox lightsWrapper = (HBox) mainWrapper.getChildren().get(0);
-            System.out.println(lightsWrapper.getChildren());
-            Rectangle currentLight = (Rectangle) lightsWrapper.getChildren().get(lightsCounter);
-            currentLight.setFill(Color.rgb(rgbRed+=20, rgbGreen+=20, rgbBlue));
-            ++lightsCounter;
+
+            if (lightsCounter < 6) {
+
+                HBox mainWrapper = (HBox) lights.getChildren().get(1);
+                HBox lightsWrapper = (HBox) mainWrapper.getChildren().get(0);
+                Rectangle currentLight = (Rectangle) lightsWrapper.getChildren().get(lightsCounter);
+
+                currentLight.setFill(Color.rgb(
+                        redGreenChanges[lightsCounter],
+                        redGreenChanges[lightsCounter],
+                        blueChanges[lightsCounter]));
+                lightsCounter++;
+
+            }
+        });
+
+    }
+
+    public void decreaseLights(Button btn, HBox lights) {
+        btn.setOnAction((event) -> {
+
+            if (lightsCounter >= 0) {
+
+                HBox mainWrapper = (HBox) lights.getChildren().get(1);
+                HBox lightsWrapper = (HBox) mainWrapper.getChildren().get(0);
+                System.out.println(lightsWrapper.getChildren());
+                --lightsCounter;
+                Rectangle currentLight = (Rectangle) lightsWrapper.getChildren().get(lightsCounter);
+                System.out.println(lightsCounter);
+                currentLight.setFill(Color.rgb(40, 40, 0));
+            }
 
         });
-        dec.setOnAction((event) -> {
-            
-            HBox mainWrapper = (HBox) lights.getChildren().get(1);
-            HBox lightsWrapper = (HBox) mainWrapper.getChildren().get(0);
-            System.out.println(lightsWrapper.getChildren());
-            Rectangle currentLight = (Rectangle) lightsWrapper.getChildren().get(lightsCounter);
-            --lightsCounter;
-            currentLight.setFill(Color.rgb(40,40, rgbBlue));
-            rgbBlue = 0;
-            rgbRed  -= 20;
-            rgbGreen -= 20;
-
-        });
-        
 
     }
 

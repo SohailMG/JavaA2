@@ -1,6 +1,10 @@
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -13,14 +17,19 @@ import javafx.scene.shape.Rectangle;
  * @author sohailgsais
  */
 public class MedicalCases {
-    
-    
 
     // MEDICAL CASES
     Pane medicalCasesContainer() {
         HBox container = new HBox();
+        StackPane titleContainer = new StackPane();
 
-        container.getChildren().add(medicalCases());
+        Label title = new Label("Medical Cases");
+        StackPane.setAlignment(title, Pos.TOP_LEFT);
+        
+        title.setBackground(new Background(new BackgroundFill(Color.rgb(101, 67, 33), new CornerRadii(5.0), new Insets(-5.0))));;
+        title.setTextFill(Color.WHITE);
+        titleContainer.getChildren().addAll(medicalCases(),title);
+        container.getChildren().add(titleContainer);
         container.setPadding(new Insets(0, 20, 0, 20));
 
         return container;
@@ -67,12 +76,13 @@ public class MedicalCases {
 
         return cases;
     }
-         Label getLabel(String text, int top, int right, int bottom, int left) {
+
+    Label getLabel(String text, int top, int right, int bottom, int left) {
         Label label = new Label(text);
         label.setPadding(new Insets(top, right, bottom, left));
         label.setStyle("-fx-border-color: white;" + "-fx-border-radius:10;" + "-fx-font:40 Ariel");
 
         return label;
     }
-    
+
 }
