@@ -25,11 +25,11 @@ public class HalfMarathon extends CharityRun {
     private int entryCount;
     private final int MIN_AGE;
 
-    public HalfMarathon(String date, String startTime, int numOfWaterStations,int changingFacilities, Place place, String venueName, ArrayList<RunEntry> entry) {
-        super(date, startTime, entry);
+    public HalfMarathon(String date, String startTime, int numOfWaterStations,int changingFacilities, Place place, String venueName,RunEntry entry) {
+        super(date, startTime,entry);
         this.numOfWaterStations = numOfWaterStations;        
         this.place = place;
-        this.entryCount = entry.size();
+//        this.entryCount = entry.size();
         MIN_AGE = 16;
         venue = new Park(venueName, changingFacilities) {
             @Override
@@ -40,11 +40,10 @@ public class HalfMarathon extends CharityRun {
         };
     }
 
-    public HalfMarathon(String date, String startTime, int numOfWaterStations, Place place, String venueName, ArrayList<RunEntry> entry) {
-        super(date, startTime, entry);
+    public HalfMarathon(String date, String startTime, int numOfWaterStations, Place place, String venueName,RunEntry entry) {
+        super(date, startTime,entry);
         this.numOfWaterStations = numOfWaterStations;
         this.place = place;
-        this.entryCount = entry.size();
         MIN_AGE = 16;
         venue = new Town(venueName) {
             @Override

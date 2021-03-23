@@ -29,14 +29,22 @@ public class LightControl {
 
     Pane lightControlContainer() {
         VBox lightsContainer = new VBox(3);
-        
+        HBox container = new HBox();
         HBox lights1 = new HBox(3);
         HBox lights2 = new HBox(3);
         HBox lights3 = new HBox(3);
-        
-        
 
- 
+        StackPane titleContainer = new StackPane();
+
+        Label title = new Label("Light Control");
+        StackPane.setAlignment(title, Pos.TOP_LEFT);
+        title.setTranslateY(-7);
+        title.setTranslateX(10);
+        
+        title.setBackground(new Background(new BackgroundFill(Color.rgb(101, 67, 33), new CornerRadii(5.0), new Insets(-5.0))));;
+        title.setTextFill(Color.WHITE);
+        titleContainer.getChildren().addAll(lightsContainer, title);
+        container.getChildren().add(titleContainer);
 
         CustomButton incBtn = new CustomButton("+", 40, 40);//btn
         lights1.getChildren().add(incBtn);
@@ -93,17 +101,16 @@ public class LightControl {
         decreaseLights(decBtn3, lights3);
 
         lightsContainer.setStyle("-fx-border-color: white;" + "-fx-border-radius:8;" + "-fx-border-width:2;");
-        lightsContainer.setPadding(new Insets(20, 30, 20, 30));
+        lightsContainer.setPadding(new Insets(30, 30, 20, 30));
 
-        return lightsContainer;
+        return titleContainer;
 
     }
 
     Pane controlLights() {
         HBox lights1 = new HBox(6);
         HBox lightsContainer = new HBox();
-        
-        
+
         final int MAXLIGHTS = 6;
 
         for (int i = 0; i < MAXLIGHTS; i++) {
@@ -167,10 +174,9 @@ public class LightControl {
 
                 HBox mainWrapper = (HBox) lights.getChildren().get(1);
                 HBox lightsWrapper = (HBox) mainWrapper.getChildren().get(0);
-                System.out.println(lightsWrapper.getChildren());
                 --lightsCounter;
                 Rectangle currentLight = (Rectangle) lightsWrapper.getChildren().get(lightsCounter);
-                System.out.println(lightsCounter);
+                
                 currentLight.setFill(Color.rgb(40, 40, 0));
             }
 

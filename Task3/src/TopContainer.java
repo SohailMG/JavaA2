@@ -55,7 +55,7 @@ public class TopContainer {
                 + "-fx-border-radius: 3;");
         btns.setStyle("-fx-border-color: white;" + "-fx-border-color: none;");
 
-        btns.setPadding(new Insets(20, 10, 20, 30));
+        btns.setPadding(new Insets(20, 20, 20, 30));
 
         Label timer = getLabel("00:00:00", 30, 50, 30, 50);
         timer.setTextFill(Color.RED);
@@ -99,22 +99,30 @@ public class TopContainer {
 
         Label timeTitle = new Label("Day Time Clock");
         StackPane.setAlignment(timeTitle, Pos.TOP_LEFT);
-        
+        timeTitle.setTranslateY(-7);
+        timeTitle.setTranslateX(10);
+
         timeTitle.setBackground(new Background(new BackgroundFill(Color.rgb(101, 67, 33), new CornerRadii(5.0), new Insets(-5.0))));
         timeTitle.setTextFill(Color.WHITE);
-        
+
         Label time = getLabel("12:30:22", 40, 70, 50, 70);
-        clock.getChildren().addAll(time,timeTitle);
+        clock.getChildren().addAll(time, timeTitle);
         time.setTextFill(Color.GREEN);
         container.getChildren().add(clock);
-        
+
         Label countDownTitle = new Label("Elapsed Time");
         StackPane.setAlignment(countDownTitle, Pos.TOP_LEFT);
-        
-        countDownTitle.setBackground(new Background(new BackgroundFill(Color.rgb(101, 67, 33), new CornerRadii(5.0), new Insets(-5.0))));
+        countDownTitle.setTranslateY(-7);
+        countDownTitle.setTranslateX(10);
+
+        countDownTitle.setBackground(
+                new Background(
+                        new BackgroundFill(Color.rgb(101, 67, 33),
+                                new CornerRadii(5.0),
+                                new Insets(-5.0))));
         countDownTitle.setTextFill(Color.WHITE);
-        
-        elapsTime.getChildren().addAll(elapsedTime(),countDownTitle);
+
+        elapsTime.getChildren().addAll(elapsedTime(), countDownTitle);
         container.getChildren().add(elapsTime);
         container.setSpacing(30);
         container.setPadding(new Insets(10, 10, 10, 30));
@@ -128,7 +136,7 @@ public class TopContainer {
     Label getLabel(String text, int top, int right, int bottom, int left) {
         Label label = new Label(text);
         label.setPadding(new Insets(top, right, bottom, left));
-        label.setStyle("-fx-border-color: white;" + "-fx-border-radius:10;" + "-fx-font:50 Ariel");
+        label.setStyle("-fx-border-color: white;" + "-fx-border-radius:10;" + "-fx-font:50 Ariel;" + "-fx-border-width:2;");
 
         return label;
 

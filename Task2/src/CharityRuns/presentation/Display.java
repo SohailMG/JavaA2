@@ -7,9 +7,11 @@ package CharityRuns.presentation;
 
 import CharityRuns.Coordinator;
 import CharityRuns.RunEntry;
+import CharityRuns.CharityRun;
 import CharityRuns.FiveKRuns.FiveKmRun;
 import CharityRuns.HalfMarathonRuns.HalfMarathon;
 import CharityRuns.Place;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -17,25 +19,23 @@ import java.util.Scanner;
  * @author sohailgsais
  */
 public class Display {
-
+    
     private Coordinator coord;
     private RunEntry r;
+    private CharityRun runs;
     
-
     public Display(Coordinator coord) {
-
+        
         this.coord = coord;
         
-
     }
-
+    
     public void displayUI(int selection) {
         
-
         switch (selection) {
-
+            
             case 1:
-                displayAllHalfMarathonRuns();         
+                displayAllHalfMarathonRuns();                
                 
                 break;
             case 2:
@@ -46,17 +46,38 @@ public class Display {
                 listVenuEvents();
                 break;
             case 4:
-                System.out.println(coord.getHalfMarathonRuns().get(0).getCompName());
+                displaySearches();
                 
                 break;
             default:
                 System.out.println("Invalid");
                 break;
-
+            
         }
-
+        
     }
 
+    public void displaySearches() {
+        Scanner searchStr = new Scanner(System.in);
+        System.out.print("Enter Competitor Name > ");
+        String search = searchStr.nextLine().toLowerCase();
+        
+        coord.getAllRuns().forEach((event) -> {
+            RunEntry entry = event.getRunEntries();
+            String compName = entry.getCompetitor().getName().toLowerCase();
+            if (compName.contains(search)) {
+                
+                System.out.println("\n\tSearches Found\n");
+                System.out.println("Event Date  : " + event.getDate());
+                System.out.println("Event Num   : " + entry.getEventNum());
+                System.out.println("Event Type  : " + entry.getCompetitor().getEventType());
+                
+                
+            }
+            
+        });
+    }
+    
     public void listVenuEvents() {
         System.out.println("List all events in:");
         System.out.println("PARK......(1");
@@ -72,7 +93,7 @@ public class Display {
             
         }
     }
-
+    
     public void displayAllHalfMarathonRuns() {
         System.out.println("---+---------------+-------------+---------+--------");
         System.out.println(String.format("%2s %10s %2s %8s %2s %4s %2s ", "No |Event", "|", "Date", "|", "Time", "|", "Place"));
@@ -83,7 +104,7 @@ public class Display {
         }
         System.out.println("---+---------------+-------------+---------+--------");
     }
-
+    
     public void displayAllFiveKmRuns() {
         System.out.println("---+---------------+-------------+---------+--------");
         System.out.println(String.format("%2s %10s %2s %8s %2s %4s %2s ", "No |Event", "|", "Date", "|", "Time", "|", "Place"));
@@ -93,13 +114,13 @@ public class Display {
         }
         System.out.println("---+---------------+-------------+---------+--------");
     }
-
+    
     public void listAllVenuEvents(Place place) {
         if (coord.getHalfMarathonRuns().isEmpty() && coord.getFiveKRuns().isEmpty()) {
             System.out.println("\nThere are no event");
-
+            
         } else if (place == Place.PARK) {
-
+            
             {
                 for (int i = 0; i < coord.getFiveKRuns().size(); i++) {
                     FiveKmRun fivekRun = coord.getFiveKRuns().get(i);
@@ -113,7 +134,7 @@ public class Display {
                 for (int i = 0; i < coord.getHalfMarathonRuns().size(); i++) {
                     HalfMarathon halfMRun = coord.getHalfMarathonRuns().get(i);
                     if (halfMRun.getPlace() == Place.PARK) {
-
+                        
                         System.out.println("+---------------[Half Marathon]----------------");
                         System.out.println("|Venu                :" + halfMRun.getVenue());
                         System.out.println("|Start Time          : " + halfMRun.getStartTime());
@@ -122,13 +143,13 @@ public class Display {
                         System.out.println("+--------------------+-------------------------");
                     }
                 }
-
+                
             }
         } else {
             for (int i = 0; i < coord.getHalfMarathonRuns().size(); i++) {
                 HalfMarathon halfMRun = coord.getHalfMarathonRuns().get(i);
                 if (halfMRun.getPlace() == Place.TOWN) {
-
+                    
                     System.out.println("---------------[Half Marathon]----------------");
                     System.out.println("Venu                :" + halfMRun.getVenue());
                     System.out.println("Start Time          : " + halfMRun.getStartTime());
@@ -137,21 +158,21 @@ public class Display {
                     System.out.println("----------------------------------------------");
                 }
             }
-
+            
         }
     }
-
+    
     public void displaySelectedEvenet(int eventNum, int runType) {
-
+        
         if (runType == 1) {
             HalfMarathon halfMRun = coord.getHalfMarathonRuns().get(eventNum);
-
+            
             System.out.println("+-------------------------------------------");
             System.out.println("|Venue               :" + halfMRun.getVenue());
             System.out.println("|Entry Count         : " + halfMRun.getEntryCount());
             System.out.println("|Water Stations      : " + halfMRun.getNumOfWaterStations());
             System.out.println("+-------------------------------------------");
-
+            
         } else if (runType == 2) {
             FiveKmRun fiveKmRun = coord.getFiveKRuns().get(eventNum);
             System.out.println("+-------------------------------------------");
@@ -159,9 +180,10 @@ public class Display {
             System.out.println("|Entry Count         : " + fiveKmRun.getEntryCount());
             System.out.println("|Changing Facilities : " + fiveKmRun.getPark().getNumChangingFacilites());
             System.out.println("+-------------------------------------------");
-
+            
         }
-
+        
     }
 
+    
 }

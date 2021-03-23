@@ -1,6 +1,7 @@
 package MainApplication;
 
 import CharityRuns.Coordinator;
+import CharityRuns.RunEntry;
 import CharityRuns.presentation.Display;
 import CharityRuns.Competitor;
 import java.util.Scanner;
@@ -15,7 +16,8 @@ public class Main {
         
         
 
-//        try {
+        try {
+            
             int eventType = displayMenu();
             display.displayUI(eventType);
             
@@ -25,9 +27,9 @@ public class Main {
             display.displaySelectedEvenet(s - 1, eventType);
             
 
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public static int displayMenu() {

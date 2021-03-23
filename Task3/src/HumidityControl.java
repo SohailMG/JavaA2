@@ -37,7 +37,9 @@ public class HumidityControl {
         StackPane content = new StackPane();
         Label title = new Label("Humidity Control");
         StackPane.setAlignment(title, Pos.TOP_LEFT);
-//        title.setPadding();
+        title.setTranslateY(-7);
+        title.setTranslateX(10);
+        
         title.setBackground(new Background(new BackgroundFill(Color.rgb(101,67,33), new CornerRadii(5.0), new Insets(-5.0))));       ;
         title.setTextFill(Color.WHITE);
         content.getChildren().addAll(humidityControlContainer(),title);
@@ -99,8 +101,8 @@ public class HumidityControl {
 
         Button btnDown = new CustomButton("Down", 50, 50);
         btnDown.setGraphic(getImage("down-icon.png", 50, 50));
+        btnDown.setStyle("-fx-border-radius:20;");
         btnDown.setPadding(new Insets(10, 20, 10, 0));
-        btnDown.setStyle("-fx-border-radius:10;");
 
         btnDown.setOnAction(e -> {
             String tmp = Integer.toString(humidityCounter);

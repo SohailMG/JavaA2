@@ -25,12 +25,15 @@ public class MedicalCases {
 
         Label title = new Label("Medical Cases");
         StackPane.setAlignment(title, Pos.TOP_LEFT);
+        title.setTranslateY(-7);
+        title.setTranslateX(10);
         
         title.setBackground(new Background(new BackgroundFill(Color.rgb(101, 67, 33), new CornerRadii(5.0), new Insets(-5.0))));;
         title.setTextFill(Color.WHITE);
         titleContainer.getChildren().addAll(medicalCases(),title);
         container.getChildren().add(titleContainer);
-        container.setPadding(new Insets(0, 20, 0, 20));
+        container.setPadding(new Insets(0, 0, 0, 30));
+        
 
         return container;
 
@@ -57,7 +60,7 @@ public class MedicalCases {
             boxes.getChildren().add(stacks[i]);
             Label boxTitle = new Label(titles[i]);
             boxTitles.getChildren().add(boxTitle);
-            boxTitle.setPadding(new Insets(20, 10, 10, 10));
+            boxTitle.setPadding(new Insets(30, 10, 10, 10));
             boxTitle.setTextFill(Color.YELLOW);
             if (i == 1 || i == 2) {
                 square.setFill(Color.AQUA);
@@ -67,12 +70,14 @@ public class MedicalCases {
             }
 
         }
+        boxTitles.setPadding(new Insets(0, 20, 0, 20));
         boxTitles.setSpacing(10);
+        boxes.setPadding(new Insets(0, 20, 0, 20));
 
         cases.getChildren().add(boxTitles);
-        cases.getChildren().add(boxes);
         cases.setStyle("-fx-border-color: white;" + "-fx-border-radius:8;" + "-fx-border-width:2;");
-        cases.setPadding(new Insets(10, 30, 10, 30));
+        cases.getChildren().add(boxes);
+        cases.setPadding(new Insets(10, 30, 10, 40));
 
         return cases;
     }

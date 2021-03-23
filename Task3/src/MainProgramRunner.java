@@ -29,15 +29,13 @@ public class MainProgramRunner extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-//        Button btn = new Button();
-//        btn.setText("Say 'Hello World'"); 
 
-        Scene scene = new Scene(getBorderPane(), 870, 600, Color.BURLYWOOD);
+        Scene scene = new Scene(getBorderPane(), 880, 600);
 
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("SURGERY SYSTEM");
         primaryStage.setScene(scene);
         primaryStage.show();
-        primaryStage.setResizable(true);
+        primaryStage.setResizable(false);
         primaryStage.sizeToScene();
     }
 
@@ -59,7 +57,10 @@ public class MainProgramRunner extends Application {
     // main layout container
     Pane getBorderPane() {
         BorderPane bPane = new BorderPane();
-        bPane.setBackground(new Background(new BackgroundFill(Color.valueOf("rgb(101,67,33)"), new CornerRadii(0), Insets.EMPTY)));
+        bPane.setBackground(
+                new Background(
+                        new BackgroundFill(Color.valueOf("rgb(101,67,33)"),
+                                new CornerRadii(0), Insets.EMPTY)));
 
         //Setting the top, bottom, center, right and left nodes to the pane 
         bPane.setTop(topContainer.topSection());
@@ -76,7 +77,7 @@ public class MainProgramRunner extends Application {
         HBox container = new HBox(2);
         container.getChildren().add(lightsControl.lightControlContainer());
         container.getChildren().add(medicalCases.medicalCasesContainer());
-        container.setPadding(new Insets(10, 25, 10, 25));
+        container.setPadding(new Insets(10, 0, 10, 25));
 
         return container;
     }

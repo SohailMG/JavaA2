@@ -29,9 +29,9 @@ public class RunEntry {
         return eventNumber;
 
     }
-//    public int getEntryCount(){
-//        return competitor.length;
-//    }
+    public Competitor getCompetitor(){
+        return competitor;
+    }
 
     public HashMap<Integer, Competitor> getEntries() {
 

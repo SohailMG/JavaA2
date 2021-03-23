@@ -32,6 +32,8 @@ public class PressureControl {
 
         Label title = new Label("Pressure Control");
         StackPane.setAlignment(title, Pos.TOP_LEFT);
+        title.setTranslateY(-7);
+        title.setTranslateX(10);
         
         title.setBackground(new Background(new BackgroundFill(Color.rgb(101, 67, 33), new CornerRadii(5.0), new Insets(-5.0))));
         title.setTextFill(Color.WHITE);

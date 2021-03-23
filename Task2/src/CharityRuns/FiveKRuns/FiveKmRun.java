@@ -17,15 +17,20 @@ import CharityRuns.Venues.Park;
 public class FiveKmRun extends CharityRun{
     
     Park park;
+    ArrayList<RunEntry> entry;
     
     
-    public FiveKmRun(String date, String startTime,Park park,ArrayList<RunEntry> entry) {
+    public FiveKmRun(String date, String startTime,Park park,RunEntry entry) {
         super(date, startTime,entry);
         this.park = park;
+//        this.entry = entry;
     }
    
     public Park getPark(){
         return park;
+    }
+    public ArrayList<RunEntry> getNumEntries(){
+        return entry;
     }
     @Override
     public String toString(){

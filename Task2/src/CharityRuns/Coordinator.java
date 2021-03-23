@@ -30,5 +30,11 @@ public class Coordinator {
     public ArrayList<HalfMarathon> getHalfMarathonRuns(){
         return dao.getHalfMarathonRuns();
     }
+    public ArrayList<RunEntry> getComps(){
+        return dao.getComps();
+    }
+    public ArrayList<CharityRun> getAllRuns(){
+        return dao.getAllRuns();
+    }
 
 }
