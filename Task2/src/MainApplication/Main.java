@@ -12,7 +12,7 @@ public class Main {
 
         Coordinator coord = new Coordinator();
         Display display = new Display(coord);
-        Competitor c = new Competitor();
+        
         
         
 
@@ -37,6 +37,7 @@ public class Main {
         System.out.println("Half Marathon.........(1");
         System.out.println("Five Km Run...........(2");
         System.out.println("Show Venues...........(3");
+        System.out.println("Search Competitor.....(4");
         System.out.println("Exit..................(0");
         System.out.println("........................");
         System.out.println("Select an Event   >");

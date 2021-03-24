@@ -23,6 +23,8 @@ public class Display {
     private Coordinator coord;
     private RunEntry r;
     private CharityRun runs;
+    final String FIVEK = "Five K";
+    final String HALFM = "HalfMarathon";
     
     public Display(Coordinator coord) {
         
@@ -47,6 +49,7 @@ public class Display {
                 break;
             case 4:
                 displaySearches();
+
                 
                 break;
             default:
@@ -169,7 +172,7 @@ public class Display {
             
             System.out.println("+-------------------------------------------");
             System.out.println("|Venue               :" + halfMRun.getVenue());
-            System.out.println("|Entry Count         : " + halfMRun.getEntryCount());
+            System.out.println("|Entry Count         : " + getEntryCount(halfMRun.getVenue().getName(),HALFM));
             System.out.println("|Water Stations      : " + halfMRun.getNumOfWaterStations());
             System.out.println("+-------------------------------------------");
             
@@ -177,12 +180,27 @@ public class Display {
             FiveKmRun fiveKmRun = coord.getFiveKRuns().get(eventNum);
             System.out.println("+-------------------------------------------");
             System.out.println("|Venue               : " + fiveKmRun.getPark().getName());
-            System.out.println("|Entry Count         : " + fiveKmRun.getEntryCount());
+            System.out.println("|Entry Count         : " + getEntryCount(fiveKmRun.getPark().getName(),FIVEK));
             System.out.println("|Changing Facilities : " + fiveKmRun.getPark().getNumChangingFacilites());
             System.out.println("+-------------------------------------------");
             
         }
         
+    }
+    public int getEntryCount(String venuName,String eventType){
+        int counter = 0;
+        for (int i = 0; i < coord.getAllRuns().size(); i++) {
+            String eventName = coord.getAllRuns().get(i).getRunEntries().getCompetitor().geteventName();
+            String type = coord.getAllRuns().get(i).getRunEntries().getCompetitor().getEventType();
+            
+            if (venuName.contains(eventName) && type.contains(eventType)) {
+                counter++;
+               
+            }
+            
+            
+        }
+        return counter;
     }
 
     

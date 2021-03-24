@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 
 import java.io.File;
@@ -24,6 +19,12 @@ import javafx.scene.paint.Color;
 
 /**
  *
+ * This class contains all layouts and structure that outputs
+ * the Humidity control box.
+ * using a stack pane as the main container with two VBoxs
+ * in first VBox there are three HBoxs for image,number and percentage sign
+ * in secondVBox there are two HBoxes for two buttons up and down
+ * 
  * @author sohailgsais
  */
 public class HumidityControl {
@@ -40,7 +41,7 @@ public class HumidityControl {
         title.setTranslateY(-7);
         title.setTranslateX(10);
         
-        title.setBackground(new Background(new BackgroundFill(Color.rgb(101,67,33), new CornerRadii(5.0), new Insets(-5.0))));       ;
+        title.setBackground(new Background(new BackgroundFill(Color.rgb(101,67,33), new CornerRadii(5.0), new Insets(-5.0))));
         title.setTextFill(Color.WHITE);
         content.getChildren().addAll(humidityControlContainer(),title);
         content.setPadding(new Insets(10, 10, 10, 30));

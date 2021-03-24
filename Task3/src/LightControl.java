@@ -174,8 +174,8 @@ public class LightControl {
 
                 HBox mainWrapper = (HBox) lights.getChildren().get(1);
                 HBox lightsWrapper = (HBox) mainWrapper.getChildren().get(0);
-                --lightsCounter;
                 Rectangle currentLight = (Rectangle) lightsWrapper.getChildren().get(lightsCounter);
+                --lightsCounter;
                 
                 currentLight.setFill(Color.rgb(40, 40, 0));
             }

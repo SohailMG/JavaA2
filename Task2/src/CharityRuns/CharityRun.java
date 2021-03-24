@@ -25,8 +25,6 @@ public abstract class CharityRun {
         this.date = date;
         this.startTime = startTime;
         this.entry = entry;
-//        this.entryCount = entry.size();
-//        this.entry = entry;
         
         
     }
