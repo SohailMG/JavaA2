@@ -3,13 +3,9 @@ package CharityRuns;
 
 import java.util.HashMap;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
- *
+ * run entry containing the event number as well
+ * as a competitor object
  * @author sohailgsais
  */
 public class RunEntry {
@@ -22,7 +18,6 @@ public class RunEntry {
         this.eventNumber = eventNumber;
         this.competitor = competitor;
         entries.put(eventNumber, competitor);
-//        entries.put(eventNumber, competitor);
     }
 
     public int getEventNum() {

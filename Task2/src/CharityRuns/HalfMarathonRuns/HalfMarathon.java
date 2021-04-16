@@ -1,16 +1,13 @@
 package CharityRuns.HalfMarathonRuns;
 
 
-import java.util.ArrayList;
-//import CharityRuns.FiveKRuns.
+
 import CharityRuns.CharityRun;
-import CharityRuns.Competitor;
 import CharityRuns.Place;
 import CharityRuns.RunEntry;
 import CharityRuns.Venues.Park;
 import CharityRuns.Venues.Town;
 import CharityRuns.Venues.Venue;
-import java.util.HashMap;
 /**
  *
  * @author sohailgsais
@@ -22,15 +19,21 @@ public class HalfMarathon extends CharityRun {
     private Town town;
     private Place place;
     private Venue venue;
-    private int entryCount;
-    private final int MIN_AGE;
 
+    /**
+     * constructor for half marathon runs taking place at a park
+     * @param date date of the event
+     * @param startTime start time of the event
+     * @param numOfWaterStations integer
+     * @param changingFacilities integer
+     * @param place enumerator of place either 
+     * @param venueName string name of the venue
+     * @param entry entry for the event
+     */
     public HalfMarathon(String date, String startTime, int numOfWaterStations,int changingFacilities, Place place, String venueName,RunEntry entry) {
         super(date, startTime,entry);
         this.numOfWaterStations = numOfWaterStations;        
-        this.place = place;
-//        this.entryCount = entry.size();
-        MIN_AGE = 16;
+        this.place = place;        
         venue = new Park(venueName, changingFacilities) {
             @Override
             public void place(Place place) {
@@ -39,12 +42,20 @@ public class HalfMarathon extends CharityRun {
             }
         };
     }
-
+    /**
+     * constructor for half m runs taking place at a town
+     * @param date
+     * @param startTime
+     * @param numOfWaterStations
+     * @param place
+     * @param venueName
+     * @param entry 
+     */
     public HalfMarathon(String date, String startTime, int numOfWaterStations, Place place, String venueName,RunEntry entry) {
         super(date, startTime,entry);
         this.numOfWaterStations = numOfWaterStations;
         this.place = place;
-        MIN_AGE = 16;
+        
         venue = new Town(venueName) {
             @Override
             public void place(Place place) {
@@ -53,7 +64,8 @@ public class HalfMarathon extends CharityRun {
             }
         };
     }
-
+    
+    // GETTERS
     public int getNumOfWaterStations() {
         return numOfWaterStations;
     }
@@ -78,13 +90,6 @@ public class HalfMarathon extends CharityRun {
 
     public Venue getVenue() {
         return venue;
-    }
-
-    public int getCount() {
-        return entryCount;
-    }
-    public HashMap<Integer, Competitor> getCompName(){
-        return super.getEntries();
     }
 
     @Override

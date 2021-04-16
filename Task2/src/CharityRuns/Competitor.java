@@ -1,12 +1,8 @@
 package CharityRuns;
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 /**
- *
+ * Competitor class containing name age,event type and event name 
  * @author sohailgsais
  */
 public class Competitor {
@@ -17,6 +13,7 @@ public class Competitor {
     public Competitor(){
         
     }
+    // declaring competitor and initialising values
     public Competitor(String name , int age,String eventType,String eventName){
         this.name = name;
         this.age = age;
@@ -24,7 +21,7 @@ public class Competitor {
         this.eventName = eventName;
         
     }
-    
+    // getters
     public String getName(){
         return name;
     }

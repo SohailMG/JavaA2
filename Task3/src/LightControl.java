@@ -18,15 +18,25 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 /**
- *
+ *  this class contains all layouts of the lights control box
  * @author sohailgsais
  */
 public class LightControl {
-
+    
+    // declaring counter to keep track of lights
     int lightsCounter;
+    // declaring two arrays for the value of color changes
     int[] redGreenChanges = {102, 153, 204, 255, 255, 255};
     int[] blueChanges = {0, 0, 0, 0, 153, 204};
-
+    
+    /**
+     * layout container of 3 Vboxes where each Vboxes contains three
+     * HBox
+     * first  HBox - has lights increase button
+     * second HBox - container of rectangles for lights
+     * third  HBox - has lights decrease button
+     * @return 
+     */
     Pane lightControlContainer() {
         VBox lightsContainer = new VBox(3);
         HBox container = new HBox();
@@ -41,30 +51,32 @@ public class LightControl {
         title.setTranslateY(-7);
         title.setTranslateX(10);
         
+        
         title.setBackground(new Background(new BackgroundFill(Color.rgb(101, 67, 33), new CornerRadii(5.0), new Insets(-5.0))));;
         title.setTextFill(Color.WHITE);
         titleContainer.getChildren().addAll(lightsContainer, title);
         container.getChildren().add(titleContainer);
-
-        CustomButton incBtn = new CustomButton("+", 40, 40);//btn
-        lights1.getChildren().add(incBtn);
-        lights1.getChildren().add(controlLights());            //lights
+        
+        // first row containing increament button + lights + decrement button
         CustomButton decBtn = new CustomButton("-", 40, 40);
         lights1.getChildren().add(decBtn);
+        lights1.getChildren().add(controlLights());            //lights
+        CustomButton incBtn = new CustomButton("+", 40, 40);//btn
+        lights1.getChildren().add(incBtn);
 
-        //btn
-        CustomButton incBtn2 = new CustomButton("+", 40, 40);//btn
-        lights2.getChildren().add(incBtn2);
-        lights2.getChildren().add(controlLights());            //lights
+        // second row containing increament button + lights + decrement button
         CustomButton decBtn2 = new CustomButton("-", 40, 40);
         lights2.getChildren().add(decBtn2);
+        lights2.getChildren().add(controlLights());            //lights
+        CustomButton incBtn2 = new CustomButton("+", 40, 40);//btn
+        lights2.getChildren().add(incBtn2);
 
-        //btn
-        CustomButton incBtn3 = new CustomButton("+", 40, 40);//btn
-        lights3.getChildren().add(incBtn3);
-        lights3.getChildren().add(controlLights());            //lights
+        // third row containing increament button + lights + decrement button
         CustomButton decBtn3 = new CustomButton("-", 40, 40);
         lights3.getChildren().add(decBtn3);                  //btn
+        lights3.getChildren().add(controlLights());            //lights
+        CustomButton incBtn3 = new CustomButton("+", 40, 40);//btn
+        lights3.getChildren().add(incBtn3);
 
         CustomButton[] btns = {incBtn, incBtn2, incBtn3, decBtn3, decBtn2, decBtn};
         for (CustomButton btn : btns) {
@@ -81,6 +93,9 @@ public class LightControl {
         lightsContainer.getChildren().add(lights2);
         lightsContainer.getChildren().add(lights3);
 
+        /**
+         * event handlers for each button and resetting the counter for each button
+         */
         incBtn.setOnAction((event) -> {
             lightsCounter = 0;
             increasLights(incBtn, lights1);
@@ -106,13 +121,13 @@ public class LightControl {
         return titleContainer;
 
     }
-
+    // HBox container of 6 rectangles representing lights
     Pane controlLights() {
         HBox lights1 = new HBox(6);
         HBox lightsContainer = new HBox();
 
         final int MAXLIGHTS = 6;
-
+        // creating rectangles and setting their color
         for (int i = 0; i < MAXLIGHTS; i++) {
             Rectangle rectangle = new Rectangle(40, 20);
             lights1.getChildren().add(rectangle);
@@ -125,7 +140,7 @@ public class LightControl {
         return lightsContainer;
 
     }
-
+    // returns an imageview object of a given image file anem
     ImageView getImage(String imgName, int height, int width) {
 
         String imgPath = System.getProperty("user.dir") + File.separator + "images" + File.separator + imgName;
@@ -138,7 +153,7 @@ public class LightControl {
         return imageView;
 
     }
-
+    // returns a label with specified text and custom padding
     Label getLabel(String text, int top, int right, int bottom, int left) {
         Label label = new Label(text);
         label.setPadding(new Insets(top, right, bottom, left));
@@ -146,16 +161,22 @@ public class LightControl {
 
         return label;
     }
-
+    /**
+     * changes the colour of each rectangle in accordance to
+     * the current light counter
+     * @param btn button being clicked
+     * @param lights lights container
+     */
     public void increasLights(Button btn, HBox lights) {
         btn.setOnAction((event) -> {
 
             if (lightsCounter < 6) {
-
+                // getting the main wrapper of the lights
                 HBox mainWrapper = (HBox) lights.getChildren().get(1);
                 HBox lightsWrapper = (HBox) mainWrapper.getChildren().get(0);
+                // getting the current light 
                 Rectangle currentLight = (Rectangle) lightsWrapper.getChildren().get(lightsCounter);
-
+                // setting the color of each light 
                 currentLight.setFill(Color.rgb(
                         redGreenChanges[lightsCounter],
                         redGreenChanges[lightsCounter],
@@ -166,17 +187,22 @@ public class LightControl {
         });
 
     }
-
+    /**
+     * resets the colour of each rectangle to the default colour
+     * in accordance to the current light counter
+     * @param btn
+     * @param lights 
+     */
     public void decreaseLights(Button btn, HBox lights) {
         btn.setOnAction((event) -> {
 
-            if (lightsCounter >= 0) {
+            if (lightsCounter > 0) {
 
+                lightsCounter--;
                 HBox mainWrapper = (HBox) lights.getChildren().get(1);
                 HBox lightsWrapper = (HBox) mainWrapper.getChildren().get(0);
                 Rectangle currentLight = (Rectangle) lightsWrapper.getChildren().get(lightsCounter);
-                --lightsCounter;
-                
+
                 currentLight.setFill(Color.rgb(40, 40, 0));
             }
 

@@ -1,9 +1,7 @@
 package MainApplication;
 
 import CharityRuns.Coordinator;
-import CharityRuns.RunEntry;
 import CharityRuns.presentation.Display;
-import CharityRuns.Competitor;
 import java.util.Scanner;
 
 public class Main {
@@ -12,23 +10,23 @@ public class Main {
 
         Coordinator coord = new Coordinator();
         Display display = new Display(coord);
-        
-        
-        
+        Scanner selectedEvent = new Scanner(System.in);
+        while (true) {
+            try {
+                int eventType = displayMenu();
+                // displaying the selected option
+                display.displaySelected(eventType);
 
-        try {
-            
-            int eventType = displayMenu();
-            display.displayUI(eventType);
-            
-            Scanner selectedEvent = new Scanner(System.in);
-            System.out.println("Select an Event > ");
-            int s = selectedEvent.nextInt();           
-            display.displaySelectedEvenet(s - 1, eventType);
-            
+                //displaying details of selected event
+                if (eventType == 1 || eventType == 2) {
+                    display.displaySelectedEvenet(selectedEvent.nextInt() - 1, eventType);
+                } else if (eventType == 0) {
+                    break;
+                }
 
-        } catch (Exception e) {
-            System.out.println(e);
+            } catch (Exception e) {
+                System.out.println("\n WARNING -  Invalid Selection  \n");
+            }
         }
     }
 
@@ -36,8 +34,9 @@ public class Main {
         System.out.println("\tCHARITY RUNS");
         System.out.println("Half Marathon.........(1");
         System.out.println("Five Km Run...........(2");
-        System.out.println("Show Venues...........(3");
-        System.out.println("Search Competitor.....(4");
+        System.out.println("Show Park Events......(3");
+        System.out.println("Show Town Events......(4");
+        System.out.println("Search Competitor.....(5");
         System.out.println("Exit..................(0");
         System.out.println("........................");
         System.out.println("Select an Event   >");

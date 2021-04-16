@@ -3,11 +3,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * dataloader class that parses through the file and stores each 
+ * album object into an array list
  */
 /**
  *
@@ -26,6 +24,11 @@ public class DataLoader {
         
         load();
     }
+    /**
+     * loops through dataset file and splits each album line
+     * by the given delim then stores into an array. stores album
+     * tracks into separate array
+     */
     private void load() {
         File albumsFile = new File(dataFile);
         try {
@@ -57,7 +60,7 @@ public class DataLoader {
             System.out.println("File not found");
         }
     }
-
+    // GETTERS
     public ArrayList<String> getAlbumsData() {
 
         return albumsData;

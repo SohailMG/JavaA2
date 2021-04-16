@@ -6,8 +6,8 @@ import java.util.HashMap;
 
 
 /**
- *
- * HAS: DATE - TIME 
+ * Top level base class 
+ * 
  * @author sohailgsais
  */
 public abstract class CharityRun {
@@ -17,10 +17,9 @@ public abstract class CharityRun {
     private RunEntry entry;
     
     private ArrayList<CharityRun> charityRuns;
-    private RunEntry entries;
     private int entryCount;
-    private HashMap<Integer, CharityRun> comps = new HashMap<>();
     
+    // delcaring charity run constructor
     public CharityRun(String date,String startTime,RunEntry entry){
         this.date = date;
         this.startTime = startTime;
@@ -28,6 +27,7 @@ public abstract class CharityRun {
         
         
     }
+    // getters
     public ArrayList<CharityRun> getCharityRuns(){
         
         return charityRuns;
@@ -45,13 +45,6 @@ public abstract class CharityRun {
     public int getEntryCount(){
         return entryCount;
     }
-    public HashMap<Integer, Competitor> getEntries(){
-        return entries.getEntries();
-    }
-    public HashMap<Integer, CharityRun> getRuns(){
-        return comps;
-    }
-    
     
     
     

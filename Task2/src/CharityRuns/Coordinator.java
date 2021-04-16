@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package CharityRuns;
 
 import CharityRuns.DataLoader.DAO;
@@ -12,13 +8,14 @@ import CharityRuns.HalfMarathonRuns.HalfMarathon;
 import java.util.ArrayList;
 
 /**
- *
+ * coordinator communicates with the dataloader
  * @author sohailgsais
  */
 public class Coordinator {
 
     private DAO dao;
-
+    
+    
     public Coordinator() {
 
          dao = new DataLoader();

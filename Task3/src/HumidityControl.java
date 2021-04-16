@@ -1,5 +1,4 @@
 
-
 import java.io.File;
 import java.nio.file.Paths;
 import javafx.geometry.Insets;
@@ -19,36 +18,48 @@ import javafx.scene.paint.Color;
 
 /**
  *
- * This class contains all layouts and structure that outputs
- * the Humidity control box.
- * using a stack pane as the main container with two VBoxs
- * in first VBox there are three HBoxs for image,number and percentage sign
- * in secondVBox there are two HBoxes for two buttons up and down
- * 
+ * This class contains all layouts and structure that outputs the Humidity
+ * control box. using a stack pane as the main container with two VBoxs in first
+ * VBox there are three HBoxs for image,number and percentage sign in secondVBox
+ * there are two HBoxes for two buttons up and down
+ *
  * @author sohailgsais
  */
 public class HumidityControl {
-     Label temp;
-     int humidityCounter = 35;
-     final int MAXHUMIDITY = 55;
-     final int MINHUMIDITY = 30;
-       
 
+    Label temp;
+    int humidityCounter = 35;
+    final int MAXHUMIDITY = 55;
+    final int MINHUMIDITY = 30;
+
+    /**
+     * Main container of humidity control box
+     *
+     * @return stackpane containing border title with box content
+     */
     Pane humidityContainer() {
         StackPane content = new StackPane();
         Label title = new Label("Humidity Control");
         StackPane.setAlignment(title, Pos.TOP_LEFT);
         title.setTranslateY(-7);
         title.setTranslateX(10);
-        
-        title.setBackground(new Background(new BackgroundFill(Color.rgb(101,67,33), new CornerRadii(5.0), new Insets(-5.0))));
+
+        title.setBackground(new Background(
+                new BackgroundFill(Color.rgb(101, 67, 33),
+                        new CornerRadii(5.0), new Insets(-5.0))));
         title.setTextFill(Color.WHITE);
-        content.getChildren().addAll(humidityControlContainer(),title);
+        content.getChildren().addAll(humidityControlContainer(), title);
         content.setPadding(new Insets(10, 10, 10, 30));
 
         return content;
     }
 
+    /**
+     * Container of two Vboxes VBOX 1 - three HBoxes containing
+     * image/label/label VBOX 2 - two buttons UP/DOWN
+     *
+     * @return container of two VBoxes
+     */
     Pane humidityControlContainer() {
         VBox container = new VBox(2);
 
@@ -60,8 +71,12 @@ public class HumidityControl {
         return container;
     }
 
-   
-
+    /**
+     * container of three HBoxes HBox 1 - has Humidity icon image HBox 2 -
+     * Humidity number label HBox 3 - percent sign label
+     *
+     * @return
+     */
     Pane humidityControls() {
         HBox controls = new HBox(3);
 
@@ -82,6 +97,12 @@ public class HumidityControl {
         return controls;
     }
 
+    /**
+     * Container of two HBoxes HBox 1 - increment button HBox 2 - decrement
+     * button
+     *
+     * @return
+     */
     Pane humidityControlBtns() {
         HBox btns = new HBox(2);
 
@@ -90,12 +111,18 @@ public class HumidityControl {
         btnUp.setPadding(new Insets(10, 20, 10, 0));
         btnUp.setStyle("-fx-border-radius:10;");
 
+        /*
+        increment button event handler, when clicked
+        checks if the counter is less than the maxhumidity
+        if true then counter will increment by 1 and replace the current label
+        with the new integer value
+         */
         btnUp.setOnAction(e -> {
-            String tmp = Integer.toString(humidityCounter);
 
-            if (humidityCounter <= MAXHUMIDITY) {
-                temp.setText(tmp);
+            if (humidityCounter < MAXHUMIDITY) {
                 humidityCounter++;
+                String tmp = Integer.toString(humidityCounter);
+                temp.setText(tmp);
             }
 
         });
@@ -104,13 +131,18 @@ public class HumidityControl {
         btnDown.setGraphic(getImage("down-icon.png", 50, 50));
         btnDown.setStyle("-fx-border-radius:20;");
         btnDown.setPadding(new Insets(10, 20, 10, 0));
-
+        /*
+        decrement button event handler, when clicked
+        checks if the counter is more than the maxhumidity
+        if true then counter will decrement by 1 and replace the current label
+        with the new integer value
+         */
         btnDown.setOnAction(e -> {
-            String tmp = Integer.toString(humidityCounter);
 
-            if (humidityCounter >= MINHUMIDITY ) {
-                temp.setText(tmp);
+            if (humidityCounter > MINHUMIDITY) {
                 humidityCounter--;
+                String tmp = Integer.toString(humidityCounter);
+                temp.setText(tmp);
             }
 
         });
@@ -122,10 +154,18 @@ public class HumidityControl {
 
         return btns;
     }
-         ImageView getImage(String imgName, int height, int width) {
+
+    /**
+     * makes an imageview object for each image being used
+     *
+     * @param imgName string image file eg 'example.png'
+     * @param height height of the image
+     * @param width width of the image
+     * @return imageview object
+     */
+    ImageView getImage(String imgName, int height, int width) {
 
         String imgPath = System.getProperty("user.dir") + File.separator + "images" + File.separator + imgName;
-//        String imgPath = System.getProperty("user.dir") + File.separator + "images" + File.separator + imgName;
         String imgURI = Paths.get(imgPath).toUri().toString();
         ImageView imageView = new ImageView(new Image(imgURI));
 
@@ -136,6 +176,16 @@ public class HumidityControl {
 
     }
 
+    /**
+     * creates a label with custom attributes and padding
+     *
+     * @param text what the label will display
+     * @param top top padding
+     * @param right right padding
+     * @param bottom bottom padding
+     * @param left left padding
+     * @return label
+     */
     Label getLabel(String text, int top, int right, int bottom, int left) {
         Label label = new Label(text);
         label.setPadding(new Insets(top, right, bottom, left));
@@ -143,5 +193,5 @@ public class HumidityControl {
 
         return label;
     }
-    
+
 }

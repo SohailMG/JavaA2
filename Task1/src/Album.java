@@ -1,12 +1,7 @@
 
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
- *
+ * Album class to store each album object and their
+ * details
  * @author sohailgsais
  */
 public class Album  implements Comparable<Album>{
@@ -20,7 +15,8 @@ public class Album  implements Comparable<Album>{
 
     public Album() {
     }
-
+    
+    // Album constructor to initialise album data
     Album(int ranking, String title, String artist, String year, String sales, String[] tracks) {
         this.title = title;
         this.artist = artist;
@@ -29,7 +25,8 @@ public class Album  implements Comparable<Album>{
         this.ranking = ranking;
         this.tracks = tracks;
     }
-
+    
+    // GETTERS
     public String getTitle() {
         return title;
     }
@@ -53,7 +50,11 @@ public class Album  implements Comparable<Album>{
         return sales;
     }
 
-
+    /**
+     * sorts album objects by comparing their ranks
+     * @param other
+     * @return 
+     */
     @Override
     public int compareTo(Album other){
         if (other.getRank() > this.getRank()) {
@@ -65,10 +66,15 @@ public class Album  implements Comparable<Album>{
         }
         return 0;
     }
+    /**
+     * overriding the tostring method to output the album object
+     * in the given format
+     * @return 
+     */
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-
+        
         String obj;
                 String headerBorder = " |-------------------------------------------------------------------------------------------------------|";
                 String headerTitles = String.format("%6s %2s %-80s %-1s %-2s %1s %1s", "|Rank", "|", "Title", "|", "Mins", "|", "Secs |");
@@ -87,6 +93,7 @@ public class Album  implements Comparable<Album>{
                 str.append(albumInfo).append("\n\t\t\t\t\t[Track List]\n");
                 str.append(headerBorder).append("\n").append(headerTitles).append("\n").append(headerBorder).append("\n");
                 int x = 0;
+                // looping though array of tracks and splitting it into title,mins,seconds
                 for (String track : tracks) {
                     
                     String temp = track.replaceAll("\\)", "");

@@ -1,17 +1,6 @@
 package CharityRuns;
-
-
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- *
+ * date class 
  * @author sohailgsais
  */
 public class myDate {
@@ -42,15 +31,16 @@ public class myDate {
     }
     public String getTime(){
         
-        String time = "" + hours + ":" + minutes ;
+        String time = "" + String.format("%02d", hours) + ":" + String.format("%02d", minutes) ;
         
         
         return time;
         
     }
     public String getDate(){
+       
         
-        String date = "" + day + "/" + month + "/" + year ;        
+        String date = String.format("%02d", day) + "/" + String.format("%02d", month)+ "/" + year ;        
         return date;
         
     }

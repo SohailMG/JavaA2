@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-//TODO: MAKE LOADER CLASS FOR FILE 
+// Main program runner
 public class Main {
 
     public static void main(String[] args) {
@@ -22,16 +22,18 @@ public class Main {
         boolean activeMenu = true;
         while (activeMenu) {
             try {
-
+                // displaying the menu
                 displayOptions();
                 System.out.print("Choose Option >");
                 Scanner menuScanner = new Scanner(System.in);
                 int option = menuScanner.nextInt();
                 switch (option) {
                     case 1:
+                        // displaying list of albums
                         listAllAlbums(albums);
                         break;
                     case 2:
+                        // displaying details of selected album
                         displaySelectedAlbum(albums);
                         break;
                     case 3:
@@ -39,7 +41,7 @@ public class Main {
                         Scanner search = new Scanner(System.in);
                         String searchStr = search.nextLine().toLowerCase();
                         int matchCount = 0;
-                        System.out.println("Matches");
+                        // displaying search results for a given track
                         displaySearchResults(albums, searchStr, matchCount);
                         break;
                     case 0:
@@ -129,13 +131,22 @@ public class Main {
             }
         }
     }
-
+    /**
+     * Takes a search string and iterates through array of album objects
+     * and converts both search string and track being compared to , to lowercase
+     * and outputs all matches
+     * 
+     * @param albums  array of album objects
+     * @param searchStr word or phrase being searched
+     * @param matchCount  counter of all matches
+     */
     public static void displaySearchResults(ArrayList<Album> albums, String searchStr, int matchCount) {
+        
         //looping through array of album objects
         for (int i = 0; i < albums.size(); i++) {
-//storing tracks of albums objects into an array
+           //storing tracks of albums objects into an array
             String[] Albumtracks = albums.get(i).getTracks();
-//looping through tracks containing search string
+          //looping through tracks containing search string
             for (int j = 0; j < Albumtracks.length; j++) {
                 String lcTrack = Albumtracks[j].toLowerCase();
                 if (lcTrack.contains(searchStr)) {
@@ -217,6 +228,9 @@ public class Main {
         }
     }
 
+    /**
+     * outputs the header to the table;
+     */
     public static void tableTemplate() {
         String headerTitles;
         String headerBorders;
