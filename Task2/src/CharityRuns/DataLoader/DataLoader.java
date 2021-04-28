@@ -45,12 +45,14 @@ public class DataLoader implements DAO {
     public void load() {
         // creating entries for each event
         RunEntry entry1 = new RunEntry(1221, new Competitor("Jane", 20, HALFM,  "Regents Park"));
-        RunEntry entry2 = new RunEntry(1221, new Competitor("Jane", 14, HALFM,  "Hyde Park"));
+        RunEntry entry2 = new RunEntry(1221, new Competitor("Jane", 17, HALFM,  "Hyde Park"));
         RunEntry entry3 = new RunEntry(1241, new Competitor("Sarah", 22, HALFM, "London"));
         RunEntry entry4 = new RunEntry(1261, new Competitor("Jane", 19, FIVEK,  "Kings Park"));
-        RunEntry entry5 = new RunEntry(1211, new Competitor("Jordan", 24, FIVEK, "Hyde Park"));
+        RunEntry entry5 = new RunEntry(1211, new Competitor("Adam", 24, FIVEK, "Hyde Park"));
+        RunEntry entry6 = new RunEntry(1313, new Competitor("Jasmin", 20, HALFM, "Hyde Park"));
+        RunEntry entry7 = new RunEntry(1411, new Competitor("Alice", 21, FIVEK, "Hyde Park"));
 
-        RunEntry[] entries = {entry1, entry2, entry3, entry4, entry5,};
+        RunEntry[] entries = {entry1, entry2, entry3, entry4, entry5,entry6,entry7};
 
         validateEntries(entries);
         checkDubEntry(entries);
@@ -58,10 +60,12 @@ public class DataLoader implements DAO {
         halfMarathonRuns.add(new HalfMarathon(new myDate(2021, 7, 9).getDate(), new myDate(14, 30).getTime(), 10, 30, Place.PARK, entry1.getCompetitor().geteventName(), entry1));
         halfMarathonRuns.add(new HalfMarathon(new myDate(2021, 10, 3).getDate(), new myDate(13, 40).getTime(), 9, 14, Place.PARK, entry2.getCompetitor().geteventName(), entry2));
         halfMarathonRuns.add(new HalfMarathon(new myDate(2021, 12, 4).getDate(), new myDate(12, 30).getTime(), 9, Place.TOWN, entry3.getCompetitor().geteventName(), entry3));
+        halfMarathonRuns.add(new HalfMarathon(new myDate(2021, 30, 4).getDate(), new myDate(11, 30).getTime(), 9, Place.PARK, entry3.getCompetitor().geteventName(), entry6));
         System.out.println(halfMarathonRuns.get(2).getPlace());
 
         fiveKruns.add(new FiveKmRun(new myDate(2021, 8, 31).getDate(), new myDate(17, 55).getTime(), new Park(entry4.getCompetitor().geteventName(), 3), entry4));
         fiveKruns.add(new FiveKmRun(new myDate(2021, 4, 4).getDate(), new myDate(14, 55).getTime(), new Park(entry5.getCompetitor().geteventName(), 20), entry5));
+        fiveKruns.add(new FiveKmRun(new myDate(2021, 3, 7).getDate(), new myDate(12, 55).getTime(), new Park(entry5.getCompetitor().geteventName(), 2), entry7));
 
         fiveKruns.forEach((fiveKrun) -> {
             runs.add(fiveKrun);

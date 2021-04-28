@@ -12,12 +12,12 @@ public class RunEntry {
 
     private int eventNumber;
     private Competitor competitor;
-    private HashMap<Integer, Competitor> entries = new HashMap<>();
+ 
 
     public RunEntry(int eventNumber, Competitor competitor) {
         this.eventNumber = eventNumber;
         this.competitor = competitor;
-        entries.put(eventNumber, competitor);
+        
     }
 
     public int getEventNum() {
@@ -28,11 +28,7 @@ public class RunEntry {
         return competitor;
     }
 
-    public HashMap<Integer, Competitor> getEntries() {
 
-        return entries;
-
-    }
 
     @Override
     public String toString() {
